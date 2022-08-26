@@ -71,6 +71,7 @@ const Signup = () => {
                                 <Logo />
                             </div>
                             <h4>Create An Account</h4>
+                            <p style={{ textAlign: "center", fontSize: '0.8rem', color: 'red' }}>{emptyinput}</p>
                             <div className='inputsect'>
                                 <p>FirstName</p>
                                 <div>
@@ -96,7 +97,6 @@ const Signup = () => {
                                 </div>
                                 <p className='passval' style={{ color: 'red', fontSize: "0.8rem" }}>{passwordValidation}</p>
                             </div>
-                            <p style={{ textAlign: "center", fontSize: '0.8rem', color: 'red' }}>{emptyinput}</p>
                             <p className='gotan'>Got An Account Already</p>
                             <div className='rod'>
                                 <div className='rod1'>

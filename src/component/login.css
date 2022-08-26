@@ -20,6 +20,7 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    overflow: hidden;
 
 
 }
@@ -142,5 +143,214 @@ h4 {
     font-weight: 500;
     border-radius: 20px;
 
+
+}
+
+.signinbody {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url(../imges/cover.png);
+    background-position: center;
+    background-size: cover;
+}
+
+
+
+.signinback {
+    width: 100%;
+    background-color: #00000070;
+    padding: 40px 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signinbodycon {
+    width: 30%;
+    background-color: white;
+    padding-top: 40px;
+    border-radius: 5px;
+    animation: signin 1 3s running normal;
+}
+
+@keyframes signin {
+    0% {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+}
+
+.emailsignin {
+    width: 95%;
+    margin: auto;
+    border-bottom: 1px solid #00000079;
+    margin-bottom: 30px;
+}
+
+.signintext {
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.emailsignin input {
+    border: none;
+    height: 40px;
+    width: 90%;
+
+
+}
+
+.emailsignin span {
+    color: #0067F5;
+    padding-right: 5px;
+}
+
+.emailsignin input:focus {
+    outline: none;
+}
+
+.emailsignin p {
+    padding: 5px 0
+}
+
+.paswordsign {
+    width: 95%;
+    margin: auto;
+    border-bottom: 1px solid #00000079;
+}
+
+.paswordsign p {
+    padding: 5px 0;
+}
+
+.paswordsign span {
+    color: #0067F5;
+    padding-right: 2px;
+}
+
+.paswordsign input {
+    border: none;
+    height: 40px;
+    width: 90%;
+}
+
+.paswordsign input:focus {
+    outline: none;
+}
+
+.signinbtn {
+    display: flex;
+    justify-content: center;
+    padding: 30px 0;
+}
+
+.signinbtn button {
+    border: none;
+    background: #0067F5;
+    color: white;
+    padding: 14px 20px;
+    width: 40%;
+    border-radius: 30px;
+}
+
+.rodsignin {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.rodsignin .rodsignin1 {
+    border-bottom: 1px solid #00000079;
+    padding: 2px 0;
+    width: 40%;
+}
+
+.rodsignin .rodsignin2 {
+    border-bottom: 1px solid #00000079;
+    padding: 2px 0;
+    width: 40%;
+}
+
+.rodsignin .signuplink {
+    padding: 0 6px;
+    color: #0067F5;
+    text-decoration: none;
+    padding: 0 9px;
+}
+
+.dont {
+    text-align: center;
+}
+
+@media (max-width:1300px) {
+    .signinbodycon {
+        width: 40%;
+    }
+}
+
+@media (max-width:1225px) {
+    .signup {
+        width: 40%;
+    }
+}
+
+@media (max-width:1000px) {
+    .signinbodycon {
+        width: 50%;
+    }
+}
+
+@media (max-width:900px) {
+    .signup {
+        width: 60%;
+    }
+
+    h4 {
+        font-size: 1.3rem;
+    }
+
+    .signinbodycon {
+        width: 55%;
+    }
+}
+
+@media (max-width:700px) {
+    .signinbodycon {
+        width: 80%;
+    }
+}
+
+@media (max-width:600px) {
+    .signup {
+        width: 80%;
+    }
+
+}
+
+@media (max-width:450px) {
+    .signup {
+        width: 90%;
+    }
+
+    .signinbodycon {
+        width: 90%;
+    }
+
+}
+
+@media (max-width:400px) {
+    .signup {
+        width: 97%;
+    }
+
+    .signinbodycon {
+        width: 95%;
+    }
 
 }

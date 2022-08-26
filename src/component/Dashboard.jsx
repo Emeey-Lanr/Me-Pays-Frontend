@@ -1,6 +1,13 @@
+import './dasboard.css'
 const Dashboard = () => {
     return (
-        <div>Dashboard</div>
+        <>
+            <div className='dashboardbody'>
+                <div className='dashsidebar'></div>
+                <div></div>
+            </div>
+
+        </>
     )
 }
 

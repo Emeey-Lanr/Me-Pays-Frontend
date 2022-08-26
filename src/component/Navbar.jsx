@@ -4,10 +4,15 @@ import Logo from './Logo'
 import { GrTextAlignRight, GrClose } from 'react-icons/gr'
 const Navbar = () => {
     const [btn, setbtn] = useState(false)
-    const [bar, setbar] = useState(false)
+    const [bar, setbar] = useState(true)
     const show = () => {
         setbtn(false)
         setbar(true)
+    }
+    const hide = () => {
+        setbar(false)
+        setbtn(true)
+
     }
     return (
         <>
@@ -23,7 +28,7 @@ const Navbar = () => {
                 </div>
                 {bar && <div className='dropdown'>
                     <div className='hidebtn'>
-                        <button className='hide'><GrClose /></button>
+                        <button onClick={() => hide()} className='hide'><GrClose /></button>
                     </div>
                     <div className='dropdowncon'>
                         <div className='bodybar'>
