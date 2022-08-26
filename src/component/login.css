@@ -12,10 +12,6 @@
 
 .signupbody {
     width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
     background: linear-gradient(to left, #eff2f7, #eff2f75d, white);
     display: flex;
     justify-content: center;
@@ -30,11 +26,8 @@
 
 .back {
     width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
     background-color: #000000b4;
+    padding: 40px 0;
 
 
 }
@@ -74,7 +67,7 @@ h4 {
 .inputsect div {
     width: 100%;
     border: 1px solid #48515c46;
-    margin-bottom: 20px;
+    margin-bottom: 13px;
     padding: 3px 0;
     border-radius: 2px;
     display: flex;
@@ -96,4 +89,58 @@ h4 {
 
 .inputsect div input:focus {
     outline: none;
+}
+
+.gotan {
+    text-align: center;
+    color: #333333;
+}
+
+.rod {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    padding: 3px;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.rod1 {
+    border-bottom: 1px solid #33333342;
+    padding: 2px;
+    width: 40%;
+
+}
+
+.rod2 {
+    border-bottom: 1px solid #33333342;
+    padding: 2px;
+    width: 40%;
+}
+
+.signinlink {
+    padding: 0 10px;
+    text-decoration: none;
+    color: #0067F5;
+}
+
+.btndiv {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+
+}
+
+.btndiv button {
+    width: 90%;
+    padding: 14px 20px;
+    border: none;
+    background: #0067F5;
+    color: white;
+    font-weight: 500;
+    border-radius: 20px;
+
+
 }
