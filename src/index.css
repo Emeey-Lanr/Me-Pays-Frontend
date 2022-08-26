@@ -7,7 +7,282 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+h3 {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0067F5;
+  border-radius: 100px;
+}
+
+.iconsec {
+  width: 20px;
+  height: 20px;
+  border: 2px solid white;
+  border-top: none;
+  border-right: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconsec div {
+  width: 10px;
+  height: 10px;
+  border: 2px solid white;
+  border-top: none;
+  border-right: none;
+}
+
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 30px;
+  box-sizing: border-box;
+  background: linear-gradient(to bottom, #eff2f7, #eff2f75d, white);
+  box-shadow: 1px 2px 5px #dce9fa5d;
+  height: 90px;
+  position: sticky;
+  top: 0;
+
+}
+
+.navlink>a {
+  font-weight: 500;
+}
+
+.signup {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #4485f5;
+}
+
+.signin {
+  margin: 0 20px;
+  text-decoration: none;
+  background-color: #0067F5;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 30px;
+
+}
+
+.aboutus {
+  text-decoration: none;
+  margin: 10px;
+  color: #4485f5;
+
+}
+
+.dropbtn {
+  display: none;
+}
+
+.dropdown {
+  display: none;
+}
+
+
+
+.body {
+  width: 100%;
+  background: url(../src/imges/pay.jpg);
+  background-size: 600px;
+  background-position: right;
+  height: 90vh;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+
+}
+
+.bodycontent {
+  width: 70%;
+
+  margin: auto;
+  animation: bodycon 1 2s running normal;
+}
+
+@keyframes bodycon {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+}
+
+.body h2 {
+  font-size: 3rem;
+  color: #0067F5;
+  padding-left: 30px;
+}
+
+.body h2 span {
+  font-size: 2rem;
+}
+
+.textcon p {
+  font-size: 1rem;
+  color: #495261;
+  padding-left: 20px;
+}
+
+.textcon p .textspan1 {
+  font-size: 2rem;
+  color: #0067F5;
+}
+
+.textcon p .textspan2 {
+  font-size: 1.5rem;
+  color: #4485f5;
+}
+
+.textcon button {
+  border: none;
+  background: #0067F5;
+  padding: 12px 20px;
+  color: white;
+  margin-left: 20px;
+  font-weight: 500;
+}
+
+.textcon button:hover {
+  transition: 1s all ease-in;
+  border-radius: 30px;
+  background: #0256ca;
+}
+
+@media (max-width:1094px) {
+  .body {
+    background: unset;
+
+
+  }
+
+
+}
+
+@media (max-width:730px) {
+  .navlink {
+    display: none;
+  }
+
+  .dropbtn {
+    display: block;
+  }
+
+  .dropdown {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.432);
+    animation: hidebtn 1 1s running normal;
+  }
+
+
+  .show {
+    border: none;
+    background: none;
+    font-size: 2rem;
+    color: #4485f5;
+
+  }
+
+  .dropdowncon {
+    display: block;
+
+  }
+
+  .dropdowncon {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+    line-height: 6;
+
+  }
+
+  ._sb1 {
+    width: 100%;
+
+  }
+
+
+  .dropdowncon div {
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .hidebtn {
+    display: flex;
+    justify-content: right;
+
+  }
+
+  .hidebtn button {
+    border: none;
+    background: none;
+    padding: 30px;
+    font-size: 2rem;
+    color: #0067F5;
+  }
+
+  .bodybar {
+    animation: bodybar 1 2s running normal;
+  }
+
+  @keyframes bodybar {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+  }
+
+  .signup_ {
+    color: #ffffff;
+    text-decoration: none;
+  }
+
+  .signin_ {
+    color: #ffff;
+    text-decoration: none;
+    background-color: white;
+    padding: 10px 20px;
+    color: black;
+    border-radius: 20px;
+  }
+
+  .aboutus_ {
+    color: #ffffff;
+    text-decoration: none;
+  }
+
+  @keyframes hidebtn {
+    0% {
+      opacity: 0%;
+      transform: translateX(20px);
+    }
+
+  }
 }

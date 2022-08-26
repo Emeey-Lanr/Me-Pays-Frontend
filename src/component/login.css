@@ -1,0 +1,99 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.signupbody {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to left, #eff2f7, #eff2f75d, white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url(../imges/default.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+
+}
+
+.back {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #000000b4;
+
+
+}
+
+.signup {
+    width: 30%;
+    background: white;
+    padding: 20px 0;
+    margin: 0 auto;
+
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+}
+
+h4 {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: black;
+    padding: 10px 0;
+}
+
+.inputsect {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.inputsect p {
+    padding-bottom: 10px;
+    color: #333333;
+}
+
+.inputsect div {
+    width: 100%;
+    border: 1px solid #48515c46;
+    margin-bottom: 20px;
+    padding: 3px 0;
+    border-radius: 2px;
+    display: flex;
+
+    align-items: flex-end;
+
+}
+
+.inputsect div span {
+    padding-left: 5px;
+
+}
+
+.inputsect div input {
+    width: 80%;
+    height: 42px;
+    border: none;
+}
+
+.inputsect div input:focus {
+    outline: none;
+}
