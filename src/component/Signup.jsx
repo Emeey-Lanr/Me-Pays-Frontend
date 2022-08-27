@@ -4,7 +4,9 @@ import { FaUserAlt } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-const Signup = () => {
+import axios from 'axios'
+import { Result } from 'postcss'
+const Signup = ({ setuderid }) => {
     const phoneregex = /^[\d]{11}$/
     const mailregex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     const [firstName, setFirstName] = useState('')
@@ -51,14 +53,24 @@ const Signup = () => {
             setbtndisable(true)
         }
     }
+    const endpoint = 'http://localhost:4141/user/signup'
     //navigation 
     let navigate = useNavigate()
+    let user = { firstName: firstName, lastName: lastName, email: email, phoneNumber: phonenumber, password: password, imgUrl: '' }
     const signupAcc = () => {
-        // navigate('/dashboard')
+
         if (firstName === '' || lastName === '' || email === '' || phonenumber === '' || password === '') {
             setemptyinput('Looks like you forgot something')
         } else {
-            setemptyinput('')
+            axios.post(endpoint, user).then((result) => {
+                if (result.data['status'] !== true) {
+                    setmailvalidation('Email Already Exist')
+
+                } else {
+                    navigate('/dashboard')
+                }
+
+            })
         }
     }
     return (

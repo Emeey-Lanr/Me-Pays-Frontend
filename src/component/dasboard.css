@@ -4,15 +4,193 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: creditcard;
+    src: url(../fonts/Credit-Card-Font\ \(1\).zip);
+}
+
 .dashboardbody {
     width: 100%;
-
-    display: grid;
-    grid-template-columns: 20% 80%;
 }
-.dashsidebar{
-   height: 100%;
-   position: fixed;
-   top: 0;
-   left: 0;
+
+.dashsidebar {
+    background-color: #ffff;
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* overflow-y: scroll; */
+    padding-bottom: 30px;
+    padding-top: 20px;
+}
+
+/* .dashsidebar::-webkit-scrollbar {
+    width: 3px;
+    height: 6px !important;
+}
+
+.dashsidebar::-webkit-scrollbar-thumb {
+    height: 30px;
+}
+
+.dashsidebar::-webkit-scrollbar-track {
+    background: #556A7F;
+    height: 20px;
+    border-radius: 40px;
+}
+
+.dashsidebar::-webkit-scrollbar-track-piece {
+    width: 10px;
+    border-radius: 40px;
+} */
+
+
+.dashcont {
+    width: 85%;
+    margin: 0 0 0 auto;
+    background: #e9eef7a9;
+    padding-top: 20px;
+    height: 100vh;
+}
+
+.dashsidebar {
+    width: 250px;
+    display: flex;
+    justify-content: center;
+}
+
+.dashdetails {
+    width: 100%;
+}
+
+.dashdetails div {
+    width: 100%;
+    margin: auto;
+    margin: 50px 0;
+    border-bottom: 1px solid #f8f8f9;
+
+}
+
+.dashdetails div:hover {
+    transition: 1s all ease-out;
+    padding: 12px 20px;
+    background: #f8f8f9;
+    border-radius: 2px;
+}
+
+.dashboardpage {
+    width: 250px;
+    border-right: 2px solid #0067F5;
+    border-radius: 3px;
+}
+
+
+.dashtxet {
+    font-size: 1.1rem;
+    color: #768a9e;
+    font-weight: 500;
+}
+
+.dashdetails .dashdetailscon {
+    margin: auto;
+    text-decoration: none;
+    color: #556A7F;
+    font-weight: 500;
+
+}
+
+
+.dashdetailscon .dashicon {
+    margin-top: 7px;
+    padding-right: 10px;
+    color: #556A7F;
+
+}
+
+
+
+.account {
+    margin-top: 500px;
+    line-height: 3;
+}
+
+.dashheadercont {
+    background-color: white;
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 4px;
+    box-shadow: 1px 2px 5px #d3d3d3;
+}
+
+.imgonline {
+    position: relative;
+    display: flex;
+}
+
+.online {
+    width: 10px;
+    height: 10px;
+    background-color: greenyellow;
+    position: absolute;
+    top: 2px;
+    left: 32px;
+    border-radius: 10px;
+
+}
+
+.dashsidebtn {
+    display: none;
+}
+
+.atmcard {
+    width: 500px;
+    height: 240px;
+    background: linear-gradient(to left, #0067F5, #0DC5E7);
+    margin-top: 30px;
+    margin-left: 80px;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.atmlogo {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.cardnumber {
+    font-family: creditcard;
+}
+
+@media (max-width:1330px) {
+    .dashcont {
+        width: 80%;
+    }
+}
+
+@media (max-width:1100px) {
+    .dashcont {
+        width: 100%;
+    }
+
+    .dashsidebtn {
+        display: block;
+    }
+
+    .dashsidebtn button {
+        border: none;
+        background: none;
+        font-size: 1.3rem;
+    }
+
+    .dashsidebar {
+        display: none;
+
+    }
+
 }

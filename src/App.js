@@ -5,12 +5,14 @@ import Erropage from './component/Erropage';
 import Indexpage from './component/Indexpage';
 import Signin from './component/Signin';
 import Signup from './component/Signup';
+import { useState } from 'react'
 function App() {
+  const [userid, setuserid] = useState('')
   return (
     <>
       <Routes>
         <Route path='/' element={<Indexpage />} />
-        <Route path='/signup' element={<Signup />} />
+        <Route path='/signup' element={<Signup setuserid={setuserid} />} />
         <Route path='/signin' element={<Signin />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='*' element={<Erropage />} />

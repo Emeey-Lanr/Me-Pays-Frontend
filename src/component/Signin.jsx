@@ -1,8 +1,29 @@
 import './login.css'
 import Logo from './Logo'
 import { FaUserAlt, FaLock } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import axios from 'axios'
 const Signin = () => {
+    const [email, setemail] = useState('')
+    const [password, setpassword] = useState('')
+    const [uservalid, setuservalid] = useState('')
+    const endpoint = 'http://localhost:4141/user/signin'
+    let userDetailsValidation = { email: email, password: password }
+    const navigate = useNavigate('')
+    const signinuser = () => {
+        if (email === '' || password === '') {
+            setuservalid('Forgot something, fill in details')
+        } else {
+            axios.post(endpoint, userDetailsValidation).then((result) => {
+                if (result.data['status'] === true) {
+                    navigate('/dashboard')
+                } else {
+                    setuservalid(result.data.message)
+                }
+            })
+        }
+    }
     return (
         <>
             <div className="signinbody">
@@ -13,16 +34,16 @@ const Signin = () => {
                         <div>
                             <div className='emailsignin'>
                                 <p>Email</p>
-                                <span><FaUserAlt /></span><input type="text" />
+                                <span><FaUserAlt /></span><input type="text" onChange={(e) => setemail(e.target.value)} />
                             </div>
                             <div className='paswordsign'>
                                 <p>Password</p>
-                                <span><FaLock /> </span><input type="text" />
+                                <span><FaLock /> </span><input type="text" onChange={(e) => setpassword(e.target.value)} />
                             </div>
                         </div>
-
+                        <p style={{ textAlign: 'center', fontSize: "0.9rem", color: "red", padding: "5px 0" }}>{uservalid}</p>
                         <div className='signinbtn'>
-                            <button>Sign In</button>
+                            <button onClick={() => signinuser()}>Sign In</button>
                         </div>
                         <p className='dont'> Don't have an account ?</p>
                         <div className='rodsignin'>
