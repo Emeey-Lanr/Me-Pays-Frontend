@@ -4,7 +4,7 @@ import { FaUserAlt, FaLock } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
-const Signin = () => {
+const Signin = ({ setuserid }) => {
     const [email, setemail] = useState('')
     const [password, setpassword] = useState('')
     const [uservalid, setuservalid] = useState('')
@@ -16,8 +16,10 @@ const Signin = () => {
             setuservalid('Forgot something, fill in details')
         } else {
             axios.post(endpoint, userDetailsValidation).then((result) => {
+                console.log(result.data)
                 if (result.data['status'] === true) {
                     navigate('/dashboard')
+                    setuserid(result.data.userid)
                 } else {
                     setuservalid(result.data.message)
                 }

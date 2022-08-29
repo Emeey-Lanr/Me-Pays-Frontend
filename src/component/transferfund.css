@@ -1,0 +1,128 @@
+.transferpage {
+    width: 100%;
+    display: grid;
+    background: url(../imges/cover.png);
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.tansferlogopage {
+    width: 100%;
+    padding: 20px 0;
+    background-color: rgba(0, 0, 0, 0.452);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.transferform {
+    width: 40%;
+    background-color: #ffffff;
+    padding: 10px 0;
+    animation: tf 1 1s running normal;
+}
+
+@keyframes tf {
+    0% {
+        opacity: 1;
+        transform: translateX(-30px);
+    }
+}
+
+.transfer {
+    text-align: center;
+    color: #556A7F;
+
+    margin: auto;
+
+}
+
+.transferinpt {
+    width: 90%;
+    margin: auto;
+}
+
+.transferinpt input {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+    border: 1px solid #cecece;
+    border-radius: 2px;
+}
+
+.transferinpt p {
+    font-size: 1;
+    font-weight: 500;
+    color: #556A7F;
+    padding: 10px 0;
+}
+
+.transferinpt input:focus {
+    outline: none;
+    padding-left: 5px;
+}
+
+.transferinpt textarea {
+    width: 100%;
+    height: 20vh;
+    resize: none;
+    border: 1px solid #cecece;
+
+}
+
+.transferinpt textarea:focus {
+    outline: none;
+    padding: 5px;
+}
+
+.transferbtn {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.transferbtn button {
+    margin: 5px 10px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 20px;
+
+}
+
+.tranfercancel {
+    background: #ff8873;
+    color: white;
+}
+
+.transfersend {
+    background: #0067F5;
+    color: #ffffff;
+    font-weight: 500;
+
+}
+
+@media (max-width:1000px) {
+    .transferform {
+        width: 60%;
+    }
+}
+
+@media (max-width:800px) {
+    .transferform {
+        width: 70%;
+    }
+}
+
+@media (max-width:700px) {
+    .transferform {
+        width: 85%;
+    }
+}
+
+@media (max-width:500px) {
+    .transferform {
+        width: 90%;
+    }
+}

@@ -6,15 +6,25 @@ import Indexpage from './component/Indexpage';
 import Signin from './component/Signin';
 import Signup from './component/Signup';
 import { useState } from 'react'
+import Transfer from './component/Transfer';
+import Wallet from './component/Wallet';
+import Transaction from './component/Transaction';
+
 function App() {
   const [userid, setuserid] = useState('')
+  const [pin, setuserpin] = useState(0)
+
   return (
     <>
       <Routes>
         <Route path='/' element={<Indexpage />} />
         <Route path='/signup' element={<Signup setuserid={setuserid} />} />
-        <Route path='/signin' element={<Signin />} />
-        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/signin' element={<Signin setuserid={setuserid} />} />
+        <Route path='/dashboard' element={<Dashboard useridenti={userid} setuserpin={setuserpin} />} />
+        <Route path='/transfer' element={<Transfer pin={pin} />} />
+        <Route path='/wallet' element={<Wallet />} />
+        <Route path='/transaction' element={<Transaction />} />
+
         <Route path='*' element={<Erropage />} />
       </Routes>
 

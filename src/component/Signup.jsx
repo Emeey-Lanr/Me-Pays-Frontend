@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
 import { Result } from 'postcss'
-const Signup = ({ setuderid }) => {
+const Signup = ({ setuserid }) => {
     const phoneregex = /^[\d]{11}$/
     const mailregex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     const [firstName, setFirstName] = useState('')
@@ -14,11 +14,18 @@ const Signup = ({ setuderid }) => {
     const [email, setemail] = useState('')
     const [phonenumber, setphonenumber] = useState('')
     const [password, setpassword] = useState('')
+    const [accnumber, setaccNumber] = useState(5160606 + Math.trunc(Math.random() * 5151))
     const [passwordValidation, setpasswordValidation] = useState('')
     const [phonevalidation, setPhoneValidation] = useState('')
     const [mailvalidation, setmailvalidation] = useState('')
     const [btndisable, setbtndisable] = useState(false)
     const [emptyinput, setemptyinput] = useState('')
+    // var formatter = new Intl.NumberFormat('NGR', {
+    //     style: 'currency',
+    //     currency: 'NGR',
+    // });
+
+    // console.log(formatter.format(2500))
     //emailvalidation
     const yourmail = (e) => {
         if (mailregex.test(e.target.value)) {
@@ -56,18 +63,23 @@ const Signup = ({ setuderid }) => {
     const endpoint = 'http://localhost:4141/user/signup'
     //navigation 
     let navigate = useNavigate()
-    let user = { firstName: firstName, lastName: lastName, email: email, phoneNumber: phonenumber, password: password, imgUrl: '' }
+    let user = {
+        firstName: firstName, lastName: lastName, email: email, phoneNumber: phonenumber, password: password, accountBalance: 0.00, accounNumber: accnumber,
+        accountPin: 0, imgUrl: ''
+    }
     const signupAcc = () => {
 
         if (firstName === '' || lastName === '' || email === '' || phonenumber === '' || password === '') {
             setemptyinput('Looks like you forgot something')
         } else {
             axios.post(endpoint, user).then((result) => {
+                console.log(result.data)
                 if (result.data['status'] !== true) {
                     setmailvalidation('Email Already Exist')
 
                 } else {
                     navigate('/dashboard')
+                    setuserid(result.data.userIdentification)
                 }
 
             })

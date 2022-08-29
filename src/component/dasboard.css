@@ -51,7 +51,7 @@
     margin: 0 0 0 auto;
     background: #e9eef7a9;
     padding-top: 20px;
-    height: 100vh;
+    padding-bottom: 20px;
 }
 
 .dashsidebar {
@@ -147,8 +147,14 @@
     display: none;
 }
 
+.dashgridsect {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
 .atmcard {
-    width: 500px;
+    width: 70%;
     height: 240px;
     background: linear-gradient(to left, #0067F5, #0DC5E7);
     margin-top: 30px;
@@ -167,9 +173,306 @@
     font-family: creditcard;
 }
 
+.fundacc {
+    margin-left: 90px;
+    margin-top: 30px;
+}
+
+.fundacc button {
+    border: none;
+    font-weight: 500;
+    background: #ffff;
+    padding: 10px 20px;
+    box-shadow: 1px 2px 3px #d3d3d3;
+
+    margin: 0 10px;
+    border-radius: 5px;
+}
+
+.fundacc button p {
+    text-align: left;
+    margin-bottom: 2px;
+}
+
+.fundacc button .funp1 {
+    background-color: #ededff;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.fundacc button .funp2 {
+    background-color: #eefbe7;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: #71dd37;
+}
+
+.fundacc button .funp3 {
+    background-color: #ffe7e3;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: #ff8873;
+}
+
+.fundacc button .funp1 span {
+    color: #0DC5E7;
+
+}
+
+.sect2 {
+    padding-top: 10px;
+}
+
+.transhis {
+    width: 66%;
+    margin: auto;
+    background-color: #ffff;
+    height: 50vh;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px #d3d3d3;
+}
+
+.transdashtext {
+    text-align: left;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #607387;
+    padding: 3px 5px;
+
+}
+
+.dashsavings {
+    width: 90%;
+    height: 40vh;
+    background: #ffff;
+    margin-left: 70px;
+    margin-top: 20px;
+    border-radius: 6px;
+    box-shadow: 1px 1px 3px #d3d3d3;
+
+}
+
+.transactiondetailsboard {
+    width: 67%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 5fr 5fr;
+    justify-content: space-evenly;
+    margin-top: 30px;
+
+}
+
+.transactiondetailsboard div {
+    width: 90%;
+    padding: 30px 9px;
+    background: #ffff;
+    box-shadow: 1px 1px 3px #d3d3d3;
+    border-radius: 5px;
+
+}
+
+.moneyinvolved {
+    font-size: 2rem;
+    color: #607387;
+
+}
+
+.senttext {
+    padding: 10px 0;
+    color: #607387;
+    color: #71dd70;
+
+}
+
+.funacc {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #0000007e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fundform {
+    width: 33%;
+    background: #ffff;
+    padding: 50px 0;
+
+}
+
+.fundform input {
+    width: 100%;
+    height: 40px;
+    margin: 10px 0;
+    border: 1px solid #b5b5b6;
+}
+
+.fundform input:focus {
+    outline: 2px solid #0066f55b;
+    border: none;
+}
+
+.fundform button {
+    border: none;
+    background: #0067F5;
+    padding: 10px 20px;
+    color: white;
+    margin-top: 10px;
+    border-radius: 50px;
+    font-weight: 500;
+}
+
+.dashtranscinfo {
+    width: 100%;
+    padding: 5px 10px;
+    background: #ffff;
+    box-shadow: 1px 2px 4px #ededff;
+    color: #b5b5b6;
+
+}
+
+
+.dashtransc {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #b5b5b6;
+    margin: 4px 0;
+
+}
+
+.dashsign {
+    color: #ff3e1d;
+    background: #ffe7f3;
+    padding: 5px 5px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.seealllink {
+    width: 100%;
+    display: flex;
+    text-align: right;
+    justify-content: right;
+    align-items: flex-end;
+    position: relative;
+}
+
+.seeallink {
+    padding-right: 5px;
+    text-decoration: none;
+    color: #768a9e;
+    font-weight: 500;
+}
+
+.createwalletmodal {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #00000088;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: walletmodal 1 0.9s running normal;
+}
+
+@keyframes walletmodal {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+}
+
+.walletmod {
+    width: 30%;
+    background: #ffff;
+    padding: 10px;
+    animation: wallet 1 0.9s running normal;
+}
+
+@keyframes wallet {
+    0% {
+        transform: translateX(100px);
+    }
+}
+
+.walletform div {
+    width: 90%;
+    margin: 20px auto;
+}
+
+.walletform div p {
+    padding: 7px 0;
+}
+
+.walletform div input {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #b5b5b6;
+    padding-left: 5px;
+
+
+}
+
+.walletform div input:focus {
+    border: none;
+    border-radius: 4px;
+    outline: 2px solid #0066f563;
+}
+
+.walletcreatbtndiv {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.walletcreatbtndiv button {
+    border: none;
+    background: #0067F5;
+    color: white;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-weight: 500;
+}
+
+
+
 @media (max-width:1330px) {
     .dashcont {
         width: 80%;
+    }
+}
+
+@media (max-width:1238px) {
+    .atmcard {
+        width: 90%;
+    }
+
+    .transactiondetailsboard {
+        width: 80%;
+    }
+
+    .transhis {
+        width: 80%;
+        margin-top: 15px;
     }
 }
 
@@ -188,9 +491,64 @@
         font-size: 1.3rem;
     }
 
+
+    .backdash {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.534);
+    }
+
     .dashsidebar {
         display: none;
 
     }
 
+}
+
+@media (max-width:900px) {
+    .dashgridsect {
+        grid-template-columns: 100%;
+    }
+
+    .atmcard {
+        width: 55%;
+    }
+
+    .dashsavings {
+        width: 80%;
+        margin: 20px auto;
+    }
+}
+
+@media (max-width:710px) {
+    .atmcard {
+        width: 74%;
+
+    }
+}
+
+@media (max-width:500px) {
+    .atmcard {
+        width: 90%;
+        margin: unset;
+        margin-top: 20px;
+        margin-left: 22px;
+    }
+
+
+    .transhis {
+        width: 90%;
+        margin-top: 15px;
+    }
+
+    .fundacc {
+        margin: unset;
+        margin-top: 20px;
+        margin-left: 10px;
+    }
+
+    .dashsavings {
+        width: 90%;
+    }
 }
