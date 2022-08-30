@@ -30,6 +30,12 @@ const Wallet = () => {
             { display: 'none' }
         )
     }
+    //wallet modal
+    const [createwallet, setcreatewallet] = useState(false)
+    const createmodal = () => {
+        setcreatewallet(true)
+    }
+
     return (
         <>
 
@@ -95,7 +101,7 @@ const Wallet = () => {
                     </div>
                     <p style={{ textAlign: 'center', fontSize: '1.6rem' }}>Wallet</p>
                     <div style={{ width: '90%', margin: 'auto' }}>
-                        <button style={{ border: 'none', background: '#ffff', boxShadow: '1px 2px 4px #ededff', padding: '10px 10px', color: '#768a9e', borderRadius: '30px' }}><FaPlusCircle /> Create Wallet </button>
+                        <button onClick={() => createmodal()} style={{ border: 'none', background: '#ffff', boxShadow: '1px 2px 4px #ededff', padding: '10px 10px', color: '#768a9e', borderRadius: '30px' }}><FaPlusCircle /> Create Wallet </button>
                     </div>
 
                     <div className='dashgridsect'>
@@ -138,26 +144,36 @@ const Wallet = () => {
 
                 </div>
             </div >
-            <div className='createwalletmodal'>
-                <div className='walletmod'>
-                    <Logo />
-                    <div className='walletform'>
-                        <div>
-                            <p>Description</p>
-                            <input type="text" />
-                        </div>
-                        <div>
-                            <p>Target Ammount</p>
-                            <input type="text" />
-                        </div>
-                        <div className='walletcreatbtndiv'>
-                            <button>Create</button>
+            {createwallet &&
+                <div className='createwalletmodal'>
+                    <div className='walletmod'>
+                        <Logo />
+                        <div className='walletform'>
+                            <div>
+                                <p>Description</p>
+                                <input type="text" />
+                            </div>
+                            <div>
+                                <p>Target Ammount</p>
+                                <input type="text" />
+                            </div>
+                            <div className='walletcreatbtndiv'>
+                                <button>Create</button>
+                            </div>
                         </div>
                     </div>
+
+                </div>
+
+            }
+            <div className='fundwallet'>
+                <div>
+                    <p>Succesfull</p>
+                    {/* <p>Not Succesfull</p>
+                    <p>InsufFICIEN Amount</p> */}
                 </div>
 
             </div>
-
         </>
     )
 }

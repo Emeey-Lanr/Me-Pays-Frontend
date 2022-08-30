@@ -44,11 +44,14 @@ const Dashboard = ({ userident, setuserpin }) => {
         )
     }
     const endpoint = 'http://localhost:4141/user/dashboard'
+    useEffect(() => {
+        axios.get(endpoint).then((result) => {
+            setuserdetails(result.data)
+        })
 
-    axios.get(endpoint).then((result) => {
-        setuserdetails(result.data)
-        console.log(result.data)
-    })
+    }, [])
+
+
 
 
 
@@ -62,9 +65,50 @@ const Dashboard = ({ userident, setuserpin }) => {
     }
     const [date, setdate] = useState(new Date())
     const fundaccountendpoint = 'http://localhost:4141/user/fundaccount'
+    //
     const fundhistory = 'http://localhost:4141/user/fundacchistory'
+    //Transaction
+
+    const transactionhistory = 'http://localhost:4141/user/transactionhistory'
+    const [notransaction, setnotransaction] = useState(false)
+    const [transaction1, settransaction1] = useState({})
+    const [transaction2, settransaction2] = useState({})
+    const [transaction3, settransaction3] = useState({})
+    const transactionfunction = () => {
+        axios.get(transactionhistory).then((result) => {
+            // setnotransaction(true)
+            if (result.data.length < 1) {
+                setnotransaction(true)
+
+
+            } else if (result.data.length == 1) {
+                setnotransaction(true)
+                settransaction1(result.data[result.data.length - 1])
+
+            } else if (result.data.length == 2) {
+                settransaction1(result.data[result.data.length - 1])
+                settransaction2(result.data[result.data.length - 2])
+
+            } else if (result.data.length > 3) {
+                settransaction1(result.data[result.data.length - 1])
+                settransaction2(result.data[result.data.length - 2])
+                settransaction3(result.data[result.data.length - 3])
+            }
+        })
+
+    }
+    useEffect(() => {
+        transactionfunction()
+
+
+    })
+
+
+
+    //Trasaction History JSON
+
     let funacchistory = {
-        transferid: userdetails.id,
+        transferid: userdetails._id,
         beneficiaryName: userdetails.firstName,
         beneficiaryAccountNumber: userdetails.accounNumber,
         amountTransfer: amount,
@@ -76,6 +120,7 @@ const Dashboard = ({ userident, setuserpin }) => {
         time: { hour: date.getHours(), minutes: date.getMinutes() }
     }
 
+    //Pin validation 
     const userpinset = (e) => {
         setpinvalidation(e.target.value)
         if (e.target.value.trim().length < 4 || e.target.value.trim().length > 4) {
@@ -89,7 +134,12 @@ const Dashboard = ({ userident, setuserpin }) => {
         }
     }
 
+    ///Inflowendpoint
+    const inflowendpoint = 'http://localhost:4141/user/inflow'
+    let inflow = { account: amount, userid: userdetails._id }
+
     let userpin = { accountPin: pin, accountBalance: amount }
+
     const fundaccount = () => {
         if (userdetails.accountPin === 0) {
 
@@ -101,12 +151,23 @@ const Dashboard = ({ userident, setuserpin }) => {
 
             })
             axios.post(fundhistory, funacchistory).then((result) => {
+
+
+
+
+            })
+            axios.get(transactionhistory).then((result) => {
+                transactionfunction()
+            })
+            axios.post(inflowendpoint, inflow).then((result) => {
                 console.log(result)
             })
         }
 
 
+
     }
+    //Pin creation
     const pincreated = (e) => {
         if (e.target.value == userdetails.accountPin) {
             setacc2validation(true)
@@ -130,11 +191,21 @@ const Dashboard = ({ userident, setuserpin }) => {
 
             })
             axios.post(fundhistory, funacchistory).then((result) => {
+
+
+            })
+            axios.get(transactionhistory).then((result) => {
+
+                transactionfunction()
+            })
+            axios.post(inflowendpoint, inflow).then((result) => {
                 console.log(result)
             })
 
+
         }
     }
+
     return (
         <>
 
@@ -167,13 +238,13 @@ const Dashboard = ({ userident, setuserpin }) => {
 
                         <div className='account'>
                             <div>
-                                <Link to='/dasboard'><GrUserSettings /><span>Account</span></Link>
+                                <Link to='/account' className='link'><GrUserSettings /><span>Account</span></Link>
                             </div>
                             <div>
-                                <Link to='/dasboard'><GrPerformance /><span>Setting</span></Link>
+                                <Link to='/dashboard' className='link'><GrPerformance /><span>Setting</span></Link>
                             </div>
                             <div>
-                                <Link to='/dasboard'><GrSync /><span>Signout</span></Link>
+                                <Link to='/dashboard' className='link'><GrSync /><span>Signout</span></Link>
                             </div>
 
                         </div>
@@ -206,7 +277,7 @@ const Dashboard = ({ userident, setuserpin }) => {
                                 </div>
                                 <div>
                                     <p style={{ padding: '5px 0', fontWeight: '500' }}>Account Balance:</p>
-                                    <p> {userdetails.accountBalance === 0 ? '₦0.00' : userdetails.accountBalance}</p>
+                                    <p> {userdetails.accountBalance == 0 ? '₦0.00' : userdetails.accountBalance}</p>
                                 </div>
                                 <div style={{ paddingTop: '10px' }}>
                                     <p style={{ padding: '5px 0', fontWeight: '500' }}>Me Pays Account Number:</p>
@@ -227,12 +298,32 @@ const Dashboard = ({ userident, setuserpin }) => {
                                 </button>
                                 <button>
                                     <p className='funp3'><span><RiWindow2Line /></span></p>
-                                    <p>Create Wallet</p>
+                                    <p><Link to='/wallet' style={{ textDecoration: 'none' }}>Create Wallet</Link></p>
                                 </button>
                             </div>
                             <div className='dashsavings'>
                                 <div className=''>
-                                    Savings
+                                    <p style={{ textAlign: 'center', fontWeight: '500', color: '#556A7F' }}>Current Market</p>
+                                    <div className='invest'>
+                                        <div className='invest1'>
+                                            <p className='investp'>Rux Coin</p><div style={{ display: 'flex', justifyContent: 'flex-end', borderRadius: "0 4px 4px 0" }}><span style={{ color: 'white', paddingRight: '3px', fontWeight: '500' }}>70%</span></div>
+                                        </div>
+                                        <div className='invest2'>
+                                            <p className='investp'>BetCoin</p><div style={{ display: 'flex', justifyContent: 'flex-end', borderRadius: "0 4px 4px 0" }}><span style={{ color: 'white', paddingRight: '3px', fontWeight: '500' }}>80%</span></div>
+                                        </div>
+                                        <div className='invest3'>
+                                            <p className='investp'>Bit coin</p><div style={{ display: 'flex', justifyContent: 'flex-end', borderRadius: "0 4px 4px 0" }}><span style={{ color: 'white', paddingRight: '3px', fontWeight: '500' }}>70%</span></div>
+                                        </div>
+                                        <div className='invest4'>
+                                            <p className='investp'>Love Coin</p><div style={{ display: 'flex', justifyContent: 'flex-end', borderRadius: "0 4px 4px 0" }}><span style={{ color: 'white', paddingRight: '3px', fontWeight: '500' }}>70%</span></div>
+                                        </div>
+                                        <div className='invest5'>
+                                            <p className='investp'>Love Coin</p><div style={{ display: 'flex', justifyContent: 'flex-end', borderRadius: "0 4px 4px 0" }}><span style={{ color: 'white', paddingRight: '3px', fontWeight: '500' }}>70%</span></div>
+                                        </div>
+
+                                    </div>
+
+
                                 </div>
                             </div>
 
@@ -240,15 +331,36 @@ const Dashboard = ({ userident, setuserpin }) => {
                         <div className='sect2'>
                             <div className='transhis'>
                                 <p className='transdashtext'>Transactions  Details</p>
-                                <div className='dashtranscinfo'>
-                                    <span className='dashsign'><BsCurrencyExchange /></span>
-                                    <div className='dashtransc'>
-                                        <p>Credit</p>
-                                        <p>#3000</p>
-                                    </div>
 
-                                    <p><span>August</span>/<span>20</span>/<span>2001</span></p>
-                                </div>
+                                {notransaction ? <>
+                                    <div className='dashtranscinfo'>
+                                        <span className='dashsign'><BsCurrencyExchange /></span>
+                                        <div className='dashtransc'>
+                                            <p>{transaction1.mode}</p>
+                                            <p>{transaction1.amountTransfer}</p>
+                                        </div>
+
+                                        <p><span>{transaction1.month}</span>/<span>{transaction1.date}</span>/<span>{transaction1.year}</span></p>
+                                    </div>
+                                    <div className='dashtranscinfo'>
+                                        <span className='dashsign'><BsCurrencyExchange /></span>
+                                        <div className='dashtransc'>
+                                            <p>{transaction2.mode}</p>
+                                            <p>{transaction2.amountTransfer}</p>
+                                        </div>
+
+                                        <p><span>{transaction2.month}</span>/<span>{transaction2.date}</span>/<span>{transaction2.year}</span></p>
+                                    </div>
+                                    <div className='dashtranscinfo'>
+                                        <span className='dashsign'><BsCurrencyExchange /></span>
+                                        <div className='dashtransc'>
+                                            <p>{transaction3.mode}</p>
+                                            <p>{transaction3.amountTransfer}</p>
+                                        </div>
+
+                                        <p><span>{transaction3.month}</span>/<span>{transaction3.date}</span>/<span>{transaction3.year}</span></p>
+                                    </div>
+                                </> : <div>No Transaction Made yet</div>}
                                 <div className='seealllink'>
                                     <Link to='/transaction' className='seeallink'>See All</Link>
                                 </div>
@@ -273,11 +385,10 @@ const Dashboard = ({ userident, setuserpin }) => {
 
                     </div>
 
-
-
-
                 </div>
+
             </div >
+
 
             {acchide && <div className='funacc'>
                 <div className='fundform'>

@@ -1,16 +1,16 @@
 import './dasboard.css'
-import './transferfund.css'
+import './account.css'
 import Logo from './Logo'
 import not from '../imges/not.png'
 import { VscGraphLine } from 'react-icons/vsc'
 import { GrProjects, GrCreditCard, GrPerformance, GrUserSettings, GrSync, GrTextAlignRight, GrClose } from "react-icons/gr";
 import { RiWindow2Line } from "react-icons/ri";
 import { AiOutlineSave } from "react-icons/ai"
-import { FaPlusCircle } from 'react-icons/fa'
+import { FaUpload, FaCamera } from 'react-icons/fa'
 
 import { Link } from 'react-router-dom'
 import { useState } from 'react';
-const Transaction = () => {
+const Account = () => {
     const [dashback, setdashbaack] = useState(false)
     const [dash, setdash] = useState(true)
     const [displaydash, setdisplaydash] = useState(
@@ -63,13 +63,13 @@ const Transaction = () => {
 
                         <div className='account'>
                             <div>
-                                <Link to='/dasboard'><GrUserSettings /><span>Account</span></Link>
+                                <Link to='/dasboard' className='link'><GrUserSettings /><span>Account</span></Link>
                             </div>
                             <div>
-                                <Link to='/dasboard'><GrPerformance /><span>Setting</span></Link>
+                                <Link to='/dasboard' className='link'><GrPerformance /><span>Setting</span></Link>
                             </div>
                             <div>
-                                <Link to='/dasboard'><GrSync /><span>Signout</span></Link>
+                                <Link to='/dasboard' className='link'><GrSync /><span>Signout</span></Link>
                             </div>
 
                         </div>
@@ -94,52 +94,55 @@ const Transaction = () => {
                         </div>
 
                     </div>
-                    <div className='transaction_History'>
-                        <p>Transaction History</p>
-                    </div>
-                    <div className='transaction_History_content'>
-                        <div className='div '>
-                            <p>Date: <span>1</span>/<span>5</span>/<span>2022</span></p>
-                            <p>Beneficiary Name: <span>Oyelowow</span></p>
-                            <p>Beneficiary Acc No:</p>
-                            <p>Description: <span>djhgfghjkjhghjk</span></p>
-                            <p>Amount: <span>$6479</span></p>
-                            <p>Transfer Type: <span>Debit</span></p>
-                            <p>Refrence Id: <span>3737</span></p>
-                            <div className='transactionbutton'>
-                                <button>Delete</button>
-                                <button style={{ marginLeft: '20px' }}>Print</button>
+                    <div>
+                        <p className='profileacc'>Account/Settings</p>
+                        <div className='profileboard'>
+                            <p className='profile'>Profile</p>
+                            <div className='img'>
+                                <img src={not} alt="" />
+                            </div>
+                            <div className='label'>
+                                <label htmlFor='img-upload'>
+                                    <FaCamera />
+                                    <input type="file" id='img-upload' hidden />
+                                </label>
+                            </div>
+
+                            <div className='accountDetails'>
+                                <div>
+                                    <p>FirstName</p>
+                                    <input type="text" />
+                                </div>
+                                <div>
+                                    <p>Last Name</p>
+                                    <input type="text" />
+                                </div>
+                            </div>
+                            <div className='accountDetails' >
+                                <div>
+                                    <p>Email</p>
+                                    <input type="text" />
+                                </div>
+                                <div>
+                                    <p>Phone Number</p>
+                                    <input type="text" />
+                                </div>
+                            </div>
+                            <div className='accountDetails'>
+                                <div>
+                                    <p>Account</p>
+                                    <input type="text" />
+                                </div>
+                                <div>
+                                    <p>Pin </p>
+                                    <input type="text" />
+                                </div>
+                            </div>
+                            <div className='accdetbtn'>
+                                <button>Save Changes</button>
+                                <button className='btt'>Cancel</button>
                             </div>
                         </div>
-                        <div className='div'>
-                            <p>Date: <span>1</span>/<span>5</span>/<span>2022</span></p>
-                            <p>Beneficiary Name: <span>Oyelowow</span></p>
-                            <p>Beneficiary Acc No:</p>
-                            <p>Description: <span>djhgfghjkjhghjk</span></p>
-                            <p>Amount: <span>$6479</span></p>
-                            <p>Transfer Type: <span>Debit</span></p>
-                            <p>Refrence Id: <span>3737</span></p>
-                            <div>
-                                <button>Delete</button>
-                                <button>Print</button>
-                            </div>
-                        </div>
-                        <div className='div'>
-                            <p>Date: <span>1</span>/<span>5</span>/<span>2022</span></p>
-                            <p>Beneficiary Name: <span>Oyelowow</span></p>
-                            <p>Beneficiary Acc No:</p>
-                            <p>Description: <span>djhgfghjkjhghjk</span></p>
-                            <p>Amount: <span>$6479</span></p>
-                            <p>Transfer Type: <span>Debit</span></p>
-                            <p>Refrence Id: <span>3737</span></p>
-                            <div>
-                                <button>Delete</button>
-                                <button>Print</button>
-                            </div>
-                        </div>
-
-
-
                     </div>
 
 
@@ -153,4 +156,4 @@ const Transaction = () => {
     )
 }
 
-export default Transaction
+export default Account

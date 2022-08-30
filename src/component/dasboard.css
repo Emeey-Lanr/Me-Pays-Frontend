@@ -111,9 +111,25 @@
 
 
 .account {
-    margin-top: 500px;
-    line-height: 3;
+    margin-top: 100px;
+    line-height: 3.2;
 }
+
+.account div {
+    border-bottom: 1px solid #f8f6f6;
+}
+
+.account div .link {
+    color: #556A7F;
+    text-decoration: none;
+}
+
+.account div .link span {
+    padding-left: 5px;
+    font-weight: 500;
+}
+
+
 
 .dashheadercont {
     background-color: white;
@@ -453,6 +469,122 @@
     font-weight: 500;
 }
 
+.dashsavings {
+    padding-left: 10px;
+    height: unset;
+    padding: 10px 5px;
+}
+
+.invest1 {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+
+}
+
+.invest1 div {
+    width: 80%;
+    padding: 10px 0;
+    background-color: #71dd37;
+    margin-left: 17px;
+}
+
+.invest2 {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+
+}
+
+.invest2 div {
+    width: 40%;
+    padding: 10px 0;
+    background-color: rgb(253, 78, 78);
+    margin-left: 24px;
+}
+
+.invest3 {
+    display: flex;
+    align-items: center;
+    margin: 10px auto;
+
+}
+
+.invest3 div {
+    width: 60%;
+    padding: 10px 0;
+    background-color: #71dd70;
+    margin-left: 27px;
+}
+
+.invest4 {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+
+}
+
+.invest4 div {
+    width: 20%;
+    padding: 10px 0;
+    background-color: red;
+    margin-left: 10px;
+}
+
+.invest5 {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+
+}
+
+.invest5 div {
+    width: 10%;
+    padding: 10px 0;
+    background-color: red;
+    margin-left: 10px;
+}
+
+.investp {
+    font-weight: 500;
+    color: #556A7F;
+}
+
+.fundwallet {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.623);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fundwallet div {
+    width: 30%;
+    background: #ffff;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    color: #71dd37;
+    font-size: 1.3rem;
+    font-weight: 500;
+    border-radius: 5px;
+    animation: ifdiv 1 0.9s running normal;
+}
+
+@keyframes ifdiv {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+}
+
+
+
 
 
 @media (max-width:1330px) {
@@ -473,6 +605,10 @@
     .transhis {
         width: 80%;
         margin-top: 15px;
+    }
+
+    .walletmod {
+        width: 50%;
     }
 }
 
@@ -519,12 +655,20 @@
         width: 80%;
         margin: 20px auto;
     }
+
+    .walletmod {
+        width: 60%;
+    }
 }
 
 @media (max-width:710px) {
     .atmcard {
         width: 74%;
 
+    }
+
+    .walletmod {
+        width: 70%;
     }
 }
 
@@ -548,7 +692,41 @@
         margin-left: 10px;
     }
 
+
     .dashsavings {
         width: 90%;
     }
+
+    .walletmod {
+        width: 90%;
+    }
+}
+
+@media (max-width:378px) {
+    .atmcard {
+        width: 95%;
+        margin: unset;
+        margin: 10px auto;
+    }
+
+    .dashsavings {
+        width: 95%;
+    }
+
+    .transactiondetailsboard {
+        width: 95%;
+        justify-content: space-between;
+    }
+
+    .transactiondetailsboard div {
+        width: 95%;
+
+    }
+
+    .transhis {
+        width: 95%;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+
 }

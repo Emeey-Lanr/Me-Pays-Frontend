@@ -1,0 +1,110 @@
+.profileboard {
+    width: 90%;
+    margin: 40px auto 0 auto;
+    line-height: 2;
+    background-color: #ffff;
+    padding: 30px 0;
+    border-radius: 4px 5px;
+    box-shadow: 1px 2px 4px #b5b5b6;
+}
+
+.pallet {
+    color: #0067F5;
+    color: #556A7F;
+    color: #607387;
+    color: #b5b5b6;
+    color: #556A7F
+}
+
+.profileacc {
+    width: 90%;
+    margin: auto;
+    font-weight: 500;
+    font-size: 1.6rem;
+    color: #556A7F;
+    padding: 10px 0;
+}
+
+.profile {
+    font-weight: 400;
+    color: #556A7F;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.img {
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    border: 2px solid #556A7F;
+    border-radius: 100px;
+}
+
+.img img {
+    width: 100px;
+    height: 100px;
+
+}
+
+.label {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    color: #556A7F;
+}
+
+.label label {
+    position: absolute;
+    top: -40px;
+    margin-left: 80px;
+    font-size: 2rem;
+}
+
+.accountDetails {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 40% 40%;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+
+.accountDetails p {
+    font-weight: 500;
+    color: #556A7F;
+    padding: 5px 0;
+}
+
+.accountDetails input {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #b5b5b6;
+    border-radius: 10px;
+}
+
+.accountDetails input:focus {
+    border: none;
+    outline: 2px solid #0066f557;
+    padding-left: 2px;
+}
+
+.accdetbtn {
+    margin-left: 80px;
+    display: flex;
+}
+
+.accdetbtn button {
+    padding: 12px 20px;
+    border: none;
+    margin: 10px;
+    font-weight: 500;
+    background-color: #0067F5;
+    color: #ffff;
+    border-radius: 5px;
+
+}
+
+.accdetbtn .btt {
+    background: #b5b5b6;
+}

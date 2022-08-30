@@ -3,8 +3,10 @@ import Logo from './Logo'
 import './transferfund.css'
 import { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 const Transfer = ({ pin }) => {
     const [user, setuser] = useState({})
+    const [userid, setuserid] = useState('')
     const [userpin, setuserpin] = useState(0)
     const [beneficiaryname, setbeneficiaryname] = useState('')
     const [amount, setamount] = useState(0)
@@ -15,13 +17,15 @@ const Transfer = ({ pin }) => {
 
     axios.get(endpoint).then((result) => {
         setuser(result.data)
+        setuserid(user._id)
+
         // console.log(result.data)
     })
     const transferendpoint = 'http://localhost:4141/user/transfer'
     const [date, setdate] = useState(new Date())
     const fundhistory = 'http://localhost:4141/user/fundacchistory'
     let funacchistory = {
-        transferid: user.id,
+        transferid: user._id,
         beneficiaryName: beneficiaryname,
         beneficiaryAccountNumber: benficaiaryaccnumb,
         amountTransfer: amount,
@@ -33,7 +37,9 @@ const Transfer = ({ pin }) => {
         month: date.getMonth(),
         time: { hour: date.getHours(), minutes: date.getMinutes() }
     }
+
     let amounttransferred = { amounttransferred: amount }
+    const navigate = useNavigate()
     const send = () => {
         console.log(user)
         if (userpin === 0 || beneficiaryname === '' || amount === 0 || description === '' || benficaiaryaccnumb === 0) {
@@ -45,7 +51,7 @@ const Transfer = ({ pin }) => {
                 alert('unable to transfer')
             } else if (userpin == user.accountPin && (user.accountBalance > amount)) {
                 axios.post(transferendpoint, amounttransferred).then((result) => {
-
+                    navigate('/dashboard')
                 })
                 axios.post(fundhistory, funacchistory).then((result) => {
 

@@ -9,6 +9,7 @@ import { useState } from 'react'
 import Transfer from './component/Transfer';
 import Wallet from './component/Wallet';
 import Transaction from './component/Transaction';
+import Account from './component/Account';
 
 function App() {
   const [userid, setuserid] = useState('')
@@ -23,6 +24,7 @@ function App() {
         <Route path='/dashboard' element={<Dashboard useridenti={userid} setuserpin={setuserpin} />} />
         <Route path='/transfer' element={<Transfer pin={pin} />} />
         <Route path='/wallet' element={<Wallet />} />
+        <Route path='/account' element={<Account />} />
         <Route path='/transaction' element={<Transaction />} />
 
         <Route path='*' element={<Erropage />} />

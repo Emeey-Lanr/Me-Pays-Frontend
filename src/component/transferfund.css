@@ -103,9 +103,78 @@
 
 }
 
+.transaction_History {
+    text-align: center;
+    color: #556A7F;
+    font-size: 2rem;
+}
+
+.transaction_History_content {
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.transaction_History_content div {
+    background-color: #ffffff;
+    line-height: 3;
+    padding: 10px 10px;
+    box-shadow: 1px 2px 5px #cecece;
+}
+
+.transaction_History_content .div {
+    box-shadow: none;
+    border-radius: 5px;
+}
+
+.transaction_History_content div p {
+    color: #556A7F;
+    font-weight: 500;
+}
+
+.transaction_History_content div p span {
+    font-weight: 400;
+    color: #7a8da0;
+}
+
+.transactionbutton {
+    display: flex;
+}
+
+.transactionbutton button {
+    border: none;
+    padding: 10px 20px;
+    font-weight: 500;
+    color: #ffffff;
+    background: #0067F5;
+    border-radius: 5px;
+
+}
+
+@media (max-width:1280px) {
+    .transaction_History_content {
+        display: grid;
+        grid-template-columns: 40% 40%;
+        justify-content: space-evenly;
+    }
+
+    .transaction_History_content .div {
+        margin-top: 30px;
+    }
+}
+
 @media (max-width:1000px) {
     .transferform {
         width: 60%;
+    }
+}
+
+@media (max-width:830px) {
+    .transaction_History_content {
+        width: 100%;
     }
 }
 
@@ -119,10 +188,20 @@
     .transferform {
         width: 85%;
     }
+
+    .transaction_History_content {
+        grid-template-columns: 60%;
+        justify-content: center;
+    }
 }
 
 @media (max-width:500px) {
     .transferform {
         width: 90%;
+    }
+
+    .transaction_History_content {
+        grid-template-columns: 80%;
+
     }
 }
