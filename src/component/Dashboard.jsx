@@ -14,6 +14,16 @@ import { BsCurrencyExchange } from "react-icons/bs";
 
 
 const Dashboard = ({ userident, setuserpin }) => {
+    var formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+
+        // These options are needed to round to whole numbers if that's what you want.
+        //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+        //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+    });
+
+
     const [dashback, setdashbaack] = useState(false)
     const [dash, setdash] = useState(true)
     const [displaydash, setdisplaydash] = useState(
@@ -49,7 +59,7 @@ const Dashboard = ({ userident, setuserpin }) => {
             setuserdetails(result.data)
         })
 
-    }, [])
+    })
 
 
 
@@ -71,6 +81,9 @@ const Dashboard = ({ userident, setuserpin }) => {
 
     const transactionhistory = 'http://localhost:4141/user/transactionhistory'
     const [notransaction, setnotransaction] = useState(false)
+    const [trans1, settrans1] = useState(false)
+    const [trans2, settrans2] = useState(false)
+    const [trans3, settrans3] = useState(false)
     const [transaction1, settransaction1] = useState({})
     const [transaction2, settransaction2] = useState({})
     const [transaction3, settransaction3] = useState({})
@@ -79,17 +92,31 @@ const Dashboard = ({ userident, setuserpin }) => {
             // setnotransaction(true)
             if (result.data.length < 1) {
                 setnotransaction(true)
+                settrans1(false)
+                settrans2(false)
+                settrans3(false)
 
 
             } else if (result.data.length == 1) {
-                setnotransaction(true)
+                setnotransaction(false)
+                settrans1(true)
+                settrans2(false)
+                settrans3(false)
                 settransaction1(result.data[result.data.length - 1])
 
             } else if (result.data.length == 2) {
+                setnotransaction(false)
+                settrans1(false)
+                settrans2(true)
+                settrans3(false)
                 settransaction1(result.data[result.data.length - 1])
                 settransaction2(result.data[result.data.length - 2])
 
             } else if (result.data.length > 3) {
+                setnotransaction(false)
+                settrans1(false)
+                settrans2(false)
+                settrans3(true)
                 settransaction1(result.data[result.data.length - 1])
                 settransaction2(result.data[result.data.length - 2])
                 settransaction3(result.data[result.data.length - 3])
@@ -277,7 +304,7 @@ const Dashboard = ({ userident, setuserpin }) => {
                                 </div>
                                 <div>
                                     <p style={{ padding: '5px 0', fontWeight: '500' }}>Account Balance:</p>
-                                    <p> {userdetails.accountBalance == 0 ? '₦0.00' : userdetails.accountBalance}</p>
+                                    <p> {userdetails.accountBalance == 0 ? '$0.00' : formatter.format(userdetails.accountBalance)}</p>
                                 </div>
                                 <div style={{ paddingTop: '10px' }}>
                                     <p style={{ padding: '5px 0', fontWeight: '500' }}>Me Pays Account Number:</p>
@@ -331,13 +358,43 @@ const Dashboard = ({ userident, setuserpin }) => {
                         <div className='sect2'>
                             <div className='transhis'>
                                 <p className='transdashtext'>Transactions  Details</p>
-
-                                {notransaction ? <>
+                                {notransaction && <div>No Transaction Made yet</div>}
+                                {trans1 &&
                                     <div className='dashtranscinfo'>
                                         <span className='dashsign'><BsCurrencyExchange /></span>
                                         <div className='dashtransc'>
                                             <p>{transaction1.mode}</p>
-                                            <p>{transaction1.amountTransfer}</p>
+                                            <p>{formatter.format(transaction1.amountTransfer)}</p>
+                                        </div>
+
+                                        <p><span>{transaction1.month}</span>/<span>{transaction1.date}</span>/<span>{transaction1.year}</span></p>
+                                    </div>
+                                }
+                                {trans2 && <><div className='dashtranscinfo'>
+                                    <span className='dashsign'><BsCurrencyExchange /></span>
+                                    <div className='dashtransc'>
+                                        <p>{transaction1.mode}</p>
+                                        <p>{formatter.format(transaction1.amountTransfer)}</p>
+                                    </div>
+
+                                    <p><span>{transaction1.month}</span>/<span>{transaction1.date}</span>/<span>{transaction1.year}</span></p>
+                                </div>
+                                    <div className='dashtranscinfo'>
+                                        <span className='dashsign'><BsCurrencyExchange /></span>
+                                        <div className='dashtransc'>
+                                            <p>{transaction2.mode}</p>
+                                            <p>{formatter.format(transaction2.amountTransfer)}</p>
+                                        </div>
+
+                                        <p><span>{transaction2.month}</span>/<span>{transaction2.date}</span>/<span>{transaction2.year}</span></p>
+                                    </div>
+                                </>}
+                                {trans3 && <>
+                                    <div className='dashtranscinfo'>
+                                        <span className='dashsign'><BsCurrencyExchange /></span>
+                                        <div className='dashtransc'>
+                                            <p>{transaction1.mode}</p>
+                                            <p>{formatter.format(transaction1.amountTransfer)}</p>
                                         </div>
 
                                         <p><span>{transaction1.month}</span>/<span>{transaction1.date}</span>/<span>{transaction1.year}</span></p>
@@ -346,7 +403,7 @@ const Dashboard = ({ userident, setuserpin }) => {
                                         <span className='dashsign'><BsCurrencyExchange /></span>
                                         <div className='dashtransc'>
                                             <p>{transaction2.mode}</p>
-                                            <p>{transaction2.amountTransfer}</p>
+                                            <p>{formatter.format(transaction2.amountTransfer)}</p>
                                         </div>
 
                                         <p><span>{transaction2.month}</span>/<span>{transaction2.date}</span>/<span>{transaction2.year}</span></p>
@@ -355,12 +412,12 @@ const Dashboard = ({ userident, setuserpin }) => {
                                         <span className='dashsign'><BsCurrencyExchange /></span>
                                         <div className='dashtransc'>
                                             <p>{transaction3.mode}</p>
-                                            <p>{transaction3.amountTransfer}</p>
+                                            <p>{formatter.format(transaction3.amountTransfer)}</p>
                                         </div>
 
                                         <p><span>{transaction3.month}</span>/<span>{transaction3.date}</span>/<span>{transaction3.year}</span></p>
                                     </div>
-                                </> : <div>No Transaction Made yet</div>}
+                                </>}
                                 <div className='seealllink'>
                                     <Link to='/transaction' className='seeallink'>See All</Link>
                                 </div>
@@ -369,14 +426,14 @@ const Dashboard = ({ userident, setuserpin }) => {
                                 <div className='Sent'>
                                     <span><GrCreditCard /></span>
                                     <p className='senttext' style={{ color: ' #f87760' }}>Sent</p>
-                                    <span className='moneyinvolved'>₦0.00</span>
+                                    <span className='moneyinvolved'>$0.00</span>
                                 </div>
                                 <div className='Saved'>
                                     <span>
                                         <GrCreditCard />
                                     </span>
                                     <p className='senttext'>Recieved</p>
-                                    <span className='moneyinvolved'>₦0.00</span>
+                                    <span className='moneyinvolved'>$0.00</span>
                                 </div>
 
                             </div>
@@ -390,32 +447,35 @@ const Dashboard = ({ userident, setuserpin }) => {
             </div >
 
 
-            {acchide && <div className='funacc'>
-                <div className='fundform'>
-                    <Logo />
-                    <div style={{ width: '90%', margin: 'auto' }}>
-                        <p>Enter Amount</p>
-                        <input type="number" onChange={(e) => setammount(+e.target.value)} />
-                    </div>
-                    {createpin ?
-                        <>
-                            <div style={{ width: '90%', margin: 'auto' }}>
-                                <p>Create A 4 digit transfer pin</p>
-                                <input type="number" onChange={(e) => userpinset(e)} />
-                            </div>
-                        </> : <div style={{ width: '90%', margin: 'auto' }}>
-                            <p>Enter your pin</p>
-                            <input type="number" onChange={(e) => pincreated(e)} />
-                        </div>}
-                    <p style={{ color: 'red', fontSize: '0.9rem', width: '90%', margin: '0 auto' }}>{pinvalidation}</p>
+            {
+                acchide && <div className='funacc'>
+                    <div className='fundform'>
+                        <div style={{ cursor: 'pointer', width: '90%', margin: 'auto' }} onClick={() => setacchide(false)}>&times;</div>
+                        <Logo />
+                        <div style={{ width: '90%', margin: 'auto' }}>
+                            <p>Enter Amount</p>
+                            <input type="number" onChange={(e) => setammount(+e.target.value)} />
+                        </div>
+                        {createpin ?
+                            <>
+                                <div style={{ width: '90%', margin: 'auto' }}>
+                                    <p>Create A 4 digit transfer pin</p>
+                                    <input type="number" onChange={(e) => userpinset(e)} />
+                                </div>
+                            </> : <div style={{ width: '90%', margin: 'auto' }}>
+                                <p>Enter your pin</p>
+                                <input type="number" onChange={(e) => pincreated(e)} />
+                            </div>}
+                        <p style={{ color: 'red', fontSize: '0.9rem', width: '90%', margin: '0 auto' }}>{pinvalidation}</p>
 
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        {createpin && <button disabled={pinvalidationbtn} onClick={() => fundaccount()}>Fund Account</button>}
-                        {fundacc2validation && <button onClick={() => fundaccount2()}>Fund Account</button>}
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            {createpin && <button disabled={pinvalidationbtn} onClick={() => fundaccount()}>Fund Account</button>}
+                            {fundacc2validation && <button onClick={() => fundaccount2()}>Fund Account</button>}
 
+                        </div>
                     </div>
                 </div>
-            </div>}
+            }
         </>
     )
 }

@@ -63,10 +63,10 @@ const Transaction = () => {
 
                         <div className='account'>
                             <div>
-                                <Link to='/dasboard'><GrUserSettings /><span>Account</span></Link>
+                                <Link to='/account' className='link'><GrUserSettings /><span>Account</span></Link>
                             </div>
                             <div>
-                                <Link to='/dasboard'><GrPerformance /><span>Setting</span></Link>
+                                <Link to='/dasboard' className='link'><GrPerformance /><span>Setting</span></Link>
                             </div>
                             <div>
                                 <Link to='/dasboard'><GrSync /><span>Signout</span></Link>

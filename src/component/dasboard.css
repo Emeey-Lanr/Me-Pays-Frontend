@@ -585,7 +585,91 @@
 
 
 
+.deletwalletModal {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.329);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.sureyouwntdlt {
+    width: 30%;
+    background: #ffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
+    border-radius: 5px;
+    animation: sure 1 0.9s running normal;
+}
+
+@keyframes sure {
+    0% {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+}
+
+.sureyouwntdlt div {
+    width: 100%;
+}
+
+.sureyouwntdlt div p {
+    font-size: 1rem;
+    color: #ff3e1d;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.trash {
+    display: flex;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: red;
+    padding: 7px 0;
+    animation: trash infinite 1.8s running normal;
+}
+
+@keyframes trash {
+    0% {
+        transform: rotateX(30deg);
+
+    }
+
+    10% {
+        transform: rotateX(-30deg);
+    }
+
+}
+
+.walletbtndlt {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 10px 0;
+
+}
+
+.walletbtndlt button {
+    border: none;
+    padding: 10px 15px;
+    margin-right: 10px;
+    border-radius: 5px;
+    font-weight: 500;
+    color: #556A7F;
+}
+
+.walletbtndlt .dlt {
+    background-color: #ff3e1d;
+    color: white;
+}
 
 @media (max-width:1330px) {
     .dashcont {
@@ -608,6 +692,10 @@
     }
 
     .walletmod {
+        width: 50%;
+    }
+
+    .sureyouwntdlt {
         width: 50%;
     }
 }
@@ -659,6 +747,10 @@
     .walletmod {
         width: 60%;
     }
+
+    .sureyouwntdlt {
+        width: 60%;
+    }
 }
 
 @media (max-width:710px) {
@@ -700,6 +792,20 @@
     .walletmod {
         width: 90%;
     }
+
+    .sureyouwntdlt {
+        width: 80%;
+        animation: unset;
+        animation: sur 1s 0.9s running normal;
+    }
+
+    @keyframes sur {
+        0% {
+            opacity: 0;
+            transform: translateY(-40px);
+        }
+
+    }
 }
 
 @media (max-width:378px) {
@@ -727,6 +833,10 @@
         width: 95%;
         padding: 5px;
         box-sizing: border-box;
+    }
+
+    .sureyouwntdlt {
+        width: 90%;
     }
 
 }
