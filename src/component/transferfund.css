@@ -154,6 +154,43 @@
 
 }
 
+.transfermodal {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.transfermodal p {
+    padding: 20px 0;
+    text-align: center;
+    font-weight: 400;
+    font-size: 1.3rem;
+}
+
+.transferballmodal {
+    width: 100px;
+    height: 100px;
+    border: 4px solid #0067F5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: transfer infinite 1s running normal;
+}
+
+@keyframes transfer {
+    0% {
+        transform: rotate(360deg);
+        border-radius: 200px;
+    }
+
+}
+
 @media (max-width:1280px) {
     .transaction_History_content {
         display: grid;

@@ -2,25 +2,39 @@ import './login.css'
 import Logo from './Logo'
 import { FaUserAlt, FaLock } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
+import Loading from './Loading'
 const Signin = ({ setuserid }) => {
     const [email, setemail] = useState('')
     const [password, setpassword] = useState('')
     const [uservalid, setuservalid] = useState('')
     const endpoint = 'http://localhost:4141/user/signin'
     let userDetailsValidation = { email: email, password: password }
+    const [loadingani, setloadinani] = useState(false)
+    const [mepaygif, setmepayfgif] = useState(true)
+    useEffect(() => {
+        setloadinani(false)
+        setmepayfgif(true)
+    }, [])
     const navigate = useNavigate('')
     const signinuser = () => {
+        setloadinani(true)
         if (email === '' || password === '') {
             setuservalid('Forgot something, fill in details')
+            setloadinani(false)
         } else {
             axios.post(endpoint, userDetailsValidation).then((result) => {
-                console.log(result.data)
                 if (result.data['status'] === true) {
-                    navigate('/dashboard')
-                    setuserid(result.data.userid)
+                    setmepayfgif(false)
+                    setTimeout(() => {
+                        setmepayfgif(true)
+                        navigate('/dashboard')
+                        setuserid(result.data.userid)
+                    }, 1000)
+
                 } else {
+                    setloadinani(false)
                     setuservalid(result.data.message)
                 }
             })
@@ -60,6 +74,7 @@ const Signin = ({ setuserid }) => {
                 </div>
 
             </div>
+            {loadingani && <Loading mepaygif={mepaygif} />}
         </>
     )
 }

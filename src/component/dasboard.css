@@ -751,6 +751,10 @@
     .sureyouwntdlt {
         width: 60%;
     }
+
+    .fundform {
+        width: 50%;
+    }
 }
 
 @media (max-width:710px) {
@@ -761,6 +765,19 @@
 
     .walletmod {
         width: 70%;
+    }
+
+    .fundform {
+        width: 65%;
+    }
+
+    .fundwallet div {
+        width: 40%;
+    }
+
+    .fundwallet div p {
+        font-size: 1.2rem;
+        font-weight: 400;
     }
 }
 
@@ -805,6 +822,19 @@
             transform: translateY(-40px);
         }
 
+    }
+
+    .fundform {
+        width: 90%;
+    }
+
+    .fundwallet div {
+        width: 55%;
+    }
+
+    .fundwallet div p {
+        font-size: 1.2rem;
+        font-weight: 400;
     }
 }
 

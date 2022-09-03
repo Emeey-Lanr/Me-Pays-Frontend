@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
-import { Result } from 'postcss'
+
+import Loading from './Loading'
 const Signup = ({ setuserid }) => {
     const phoneregex = /^[\d]{11}$/
     const mailregex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
@@ -14,7 +15,7 @@ const Signup = ({ setuserid }) => {
     const [email, setemail] = useState('')
     const [phonenumber, setphonenumber] = useState('')
     const [password, setpassword] = useState('')
-    const [accnumber, setaccNumber] = useState(5160606 + Math.trunc(Math.random() * 5151))
+    const [accnumber, setaccNumber] = useState('5151' + Math.trunc(Math.random() * 10000))
     const [passwordValidation, setpasswordValidation] = useState('')
     const [phonevalidation, setPhoneValidation] = useState('')
     const [mailvalidation, setmailvalidation] = useState('')
@@ -65,21 +66,33 @@ const Signup = ({ setuserid }) => {
     let navigate = useNavigate()
     let user = {
         firstName: firstName, lastName: lastName, email: email, phoneNumber: phonenumber, password: password, accountBalance: 0.00, accounNumber: accnumber,
-        accountPin: 0, imgUrl: ''
+        accountPin: 0, imgUrl: '',
     }
+    //conditionational for the animation
+    const [loading, setloadin] = useState(false)
+    const [mepaygif, setmepayfgif] = useState(true)
+    //signup 
     const signupAcc = () => {
 
+        setloadin(true)
         if (firstName === '' || lastName === '' || email === '' || phonenumber === '' || password === '') {
+            setloadin(false)
             setemptyinput('Looks like you forgot something')
         } else {
             axios.post(endpoint, user).then((result) => {
                 console.log(result.data)
                 if (result.data['status'] !== true) {
+
+                    setloadin(false)
                     setmailvalidation('Email Already Exist')
 
                 } else {
-                    navigate('/dashboard')
-                    setuserid(result.data.userIdentification)
+                    setmepayfgif(false)
+                    setTimeout(() => {
+                        navigate('/dashboard')
+                        setuserid(result.data.userIdentification)
+                    }, 1000)
+
                 }
 
             })
@@ -140,6 +153,7 @@ const Signup = ({ setuserid }) => {
                 </div>
 
             </div>
+            {loading && <Loading mepaygif={mepaygif} />}
         </>
     )
 }

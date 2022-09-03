@@ -131,11 +131,22 @@ const Wallet = () => {
     const withdraw = (id) => {
 
     }
+    const fundIt = 'http://localhost:4141/user//fundwallet'
     const fundWallet = (itemsid, id) => {
+
         if (userdetails.accountBalance < wallett[id].targetAmount) {
-            console.log(`can't transfer`)
+            setwalletstatus(true)
+            setinfuccient(true)
+            setTimeout(() => {
+                setwalletstatus(false)
+                setinfuccient(false)
+            }, 2000)
+
         } else {
             console.log(`you can`)
+            axios.post(fundIt, { target: wallett[id].targetAmount, useramount: userdetails.accountBalance, walletid: itemsid }).then((result) => {
+                console.log(result)
+            })
         }
 
     }
@@ -190,7 +201,7 @@ const Wallet = () => {
 
                         <div className='account'>
                             <div>
-                                <Link to='/dasboard'><GrUserSettings /><span>Account</span></Link>
+                                <Link to='/account'><GrUserSettings /><span>Account</span></Link>
                             </div>
                             <div>
                                 <Link to='/dasboard'><GrPerformance /><span>Setting</span></Link>
@@ -213,7 +224,7 @@ const Wallet = () => {
                         <div style={{ display: "flex", alignItems: 'center' }}>
                             <span>Oyelowo</span>
                             <div className='imgonline'>
-                                <img src={not} alt="" width='40px' height='40px' style={{ borderRadius: "40px" }} />
+                                {userdetails.imgUrl === '' ? < img src={not} alt="" width='40px' height='40px' style={{ borderRadius: "40px" }} /> : <img src={userdetails.imgUrl} alt="" width='40px' height='40px' style={{ borderRadius: "40px" }} />}
                                 <div className='online'>.</div>
                             </div>
 
@@ -323,7 +334,7 @@ const Wallet = () => {
                     <div>
                         {success && <p>Succesfull</p>}
                         {failed && <p>Not Succesfull</p>}
-                        {insufficient && <p>InsufFICIEN Amount</p>}
+                        {insufficient && <p className='insuffic'>Insufficient Amount</p>}
 
                     </div>
 

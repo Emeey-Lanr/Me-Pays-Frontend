@@ -26,7 +26,6 @@ function App() {
         <Route path='/wallet' element={<Wallet />} />
         <Route path='/account' element={<Account />} />
         <Route path='/transaction' element={<Transaction />} />
-
         <Route path='*' element={<Erropage />} />
       </Routes>
 

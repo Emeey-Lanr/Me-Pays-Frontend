@@ -9,7 +9,8 @@ import { AiOutlineSave } from "react-icons/ai"
 import { FaUpload, FaCamera } from 'react-icons/fa'
 
 import { Link } from 'react-router-dom'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios'
 const Account = () => {
     const [dashback, setdashbaack] = useState(false)
     const [dash, setdash] = useState(true)
@@ -31,6 +32,32 @@ const Account = () => {
             { display: 'none' }
         )
     }
+    const [user, setuserdetails] = useState({})
+    const userdetails = 'http://localhost:4141/user/dashboard'
+    const userdtls = () => {
+        axios.get(userdetails).then((result) => {
+            setuserdetails(result.data)
+
+
+
+        })
+    }
+    useEffect(() => {
+        userdtls()
+
+    }, [])
+    const imguploadep = 'http://localhost:4141/user/imgupload'
+    const uploadimg = (e) => {
+        console.log(e.target.files[0])
+        let reader = new FileReader()
+        reader.readAsDataURL(e.target.files[0])
+        reader.onload = () => {
+            axios.post(imguploadep, { imgurl: reader.result }).then((result) => {
+                userdtls()
+            })
+        }
+    }
+
     return (
         <>
 
@@ -86,7 +113,8 @@ const Account = () => {
                         <div style={{ display: "flex", alignItems: 'center' }}>
                             <span>Oyelowo</span>
                             <div className='imgonline'>
-                                <img src={not} alt="" width='40px' height='40px' style={{ borderRadius: "40px" }} />
+
+                                {user.imgUrl === '' ? < img src={not} alt="" width='40px' height='40px' style={{ borderRadius: "40px" }} /> : <img src={user.imgUrl} alt="" width='40px' height='40px' style={{ borderRadius: "40px" }} />}
                                 <div className='online'>.</div>
                             </div>
 
@@ -99,43 +127,44 @@ const Account = () => {
                         <div className='profileboard'>
                             <p className='profile'>Profile</p>
                             <div className='img'>
-                                <img src={not} alt="" />
+                                {user.imgUrl === '' ? < img src={not} alt="" className='img' /> : <img src={user.imgUrl} className='img' />}
+
                             </div>
                             <div className='label'>
                                 <label htmlFor='img-upload'>
                                     <FaCamera />
-                                    <input type="file" id='img-upload' hidden />
+                                    <input type="file" id='img-upload' hidden onChange={(e) => uploadimg(e)} accept='images/*, .png, .jpg' />
                                 </label>
                             </div>
 
                             <div className='accountDetails'>
                                 <div>
                                     <p>FirstName</p>
-                                    <input type="text" />
+                                    <input type="text" placeholder={`${user.firstName}`} />
                                 </div>
                                 <div>
                                     <p>Last Name</p>
-                                    <input type="text" />
+                                    <input type="text" placeholder={`${user.lastName}`} />
                                 </div>
                             </div>
                             <div className='accountDetails' >
                                 <div>
                                     <p>Email</p>
-                                    <input type="text" />
+                                    <input type="text" placeholder={`${user.email}`} />
                                 </div>
                                 <div>
                                     <p>Phone Number</p>
-                                    <input type="text" />
+                                    <input type="text" placeholder={`${user.phoneNumber}`} />
                                 </div>
                             </div>
                             <div className='accountDetails'>
                                 <div>
                                     <p>Account</p>
-                                    <input type="text" />
+                                    <input type="text" placeholder={`${user.accounNumber}`} />
                                 </div>
                                 <div>
                                     <p>Pin </p>
-                                    <input type="text" />
+                                    <input type="text" placeholder={`${user.accountPin}`} />
                                 </div>
                             </div>
                             <div className='accdetbtn'>

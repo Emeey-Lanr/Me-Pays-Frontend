@@ -38,8 +38,18 @@
     background: white;
     padding: 20px 0;
     margin: 0 auto;
-
+    animation: signup 1 1s running normal;
 }
+
+
+
+@keyframes signup {
+    0% {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+}
+
 
 .logo {
     display: flex;
@@ -286,6 +296,51 @@ h4 {
 
 .dont {
     text-align: center;
+}
+
+.loadingif {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #ffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.loadingif>.gifdiv {
+    display: flex;
+    justify-content: center;
+    animation: gifdiv infinite 1s running normal;
+}
+
+@keyframes gifdiv {
+    0% {
+        opacity: 0;
+        transform: rotateY(95deg);
+
+    }
+
+}
+
+.loadingif div>div {
+    width: 30px;
+    height: 30px;
+    background-color: #0067F5;
+    margin: 0 20px;
+    animation: gifdivball infinite 1s running normal;
+
+}
+
+@keyframes gifdivball {
+    0% {
+        border-radius: 30px;
+
+    }
+
 }
 
 @media (max-width:1300px) {

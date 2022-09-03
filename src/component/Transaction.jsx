@@ -6,11 +6,15 @@ import { VscGraphLine } from 'react-icons/vsc'
 import { GrProjects, GrCreditCard, GrPerformance, GrUserSettings, GrSync, GrTextAlignRight, GrClose } from "react-icons/gr";
 import { RiWindow2Line } from "react-icons/ri";
 import { AiOutlineSave } from "react-icons/ai"
-import { FaPlusCircle } from 'react-icons/fa'
+import { FaPlusCircle, FaTrashAlt } from 'react-icons/fa'
 
 import { Link } from 'react-router-dom'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios'
+import { Result } from 'postcss'
 const Transaction = () => {
+    const [del, setdel] = useState(false)
+    const [dlt, setdlt] = useState('none')
     const [dashback, setdashbaack] = useState(false)
     const [dash, setdash] = useState(true)
     const [displaydash, setdisplaydash] = useState(
@@ -30,6 +34,57 @@ const Transaction = () => {
         setdisplaydash(
             { display: 'none' }
         )
+    }
+    const transactionendpoint = 'http://localhost:4141/user/transactionhistory'
+    const [notransaction, setnotransaction] = useState(false)
+    const [transaction, setransaction] = useState()
+    const getTransaction = () => {
+        axios.get(transactionendpoint).then((result) => {
+            setransaction(result.data)
+            if (result.data.length < 1) {
+                setnotransaction(false)
+            } else {
+                setnotransaction(true)
+            }
+
+
+        })
+
+    }
+    useEffect(() => {
+
+        getTransaction()
+    }, [])
+    const [tid, settid] = useState('')
+    const showdel = (transactionid) => {
+        setdlt('flex')
+        setdel(true)
+        settid(transactionid)
+
+    }
+
+    const cancelDelete = () => {
+        setdel(false)
+        setdlt('none')
+    }
+    const deltransep = 'http://localhost:4141/user/deletetransaction'
+
+    const deletehis = () => {
+        axios.post(deltransep, { tid: tid }).then((result) => {
+            setdel(false)
+            setdlt('none')
+            getTransaction()
+        })
+
+    }
+    const print = (id) => {
+        let reciept = document.getElementById(`div${id}`).innerText
+        document.body.style.border = '1px solid black'
+        document.body.style.width = '90%'
+        document.body.style.margin = '0 auto'
+        document.body.style.padding = '10px 0 20px 5px'
+        document.body.innerText = reciept
+        window.print()
     }
     return (
         <>
@@ -98,46 +153,25 @@ const Transaction = () => {
                         <p>Transaction History</p>
                     </div>
                     <div className='transaction_History_content'>
-                        <div className='div '>
-                            <p>Date: <span>1</span>/<span>5</span>/<span>2022</span></p>
-                            <p>Beneficiary Name: <span>Oyelowow</span></p>
-                            <p>Beneficiary Acc No:</p>
-                            <p>Description: <span>djhgfghjkjhghjk</span></p>
-                            <p>Amount: <span>$6479</span></p>
-                            <p>Transfer Type: <span>Debit</span></p>
-                            <p>Refrence Id: <span>3737</span></p>
-                            <div className='transactionbutton'>
-                                <button>Delete</button>
-                                <button style={{ marginLeft: '20px' }}>Print</button>
-                            </div>
-                        </div>
-                        <div className='div'>
-                            <p>Date: <span>1</span>/<span>5</span>/<span>2022</span></p>
-                            <p>Beneficiary Name: <span>Oyelowow</span></p>
-                            <p>Beneficiary Acc No:</p>
-                            <p>Description: <span>djhgfghjkjhghjk</span></p>
-                            <p>Amount: <span>$6479</span></p>
-                            <p>Transfer Type: <span>Debit</span></p>
-                            <p>Refrence Id: <span>3737</span></p>
-                            <div>
-                                <button>Delete</button>
-                                <button>Print</button>
-                            </div>
-                        </div>
-                        <div className='div'>
-                            <p>Date: <span>1</span>/<span>5</span>/<span>2022</span></p>
-                            <p>Beneficiary Name: <span>Oyelowow</span></p>
-                            <p>Beneficiary Acc No:</p>
-                            <p>Description: <span>djhgfghjkjhghjk</span></p>
-                            <p>Amount: <span>$6479</span></p>
-                            <p>Transfer Type: <span>Debit</span></p>
-                            <p>Refrence Id: <span>3737</span></p>
-                            <div>
-                                <button>Delete</button>
-                                <button>Print</button>
-                            </div>
-                        </div>
+                        {notransaction ? transaction.map((items, id) => (
 
+                            < div className='div' id={`div${id}`} >
+                                <p>Date: <span>{items.date}</span>/<span>{items.month}</span>/<span>{items.year}</span></p>
+                                <p>Beneficiary Name: <span>{items.beneficiaryName}</span></p>
+                                <p>Beneficiary Acc No:<span>{items.beneficiaryAccountNumber}</span> </p>
+                                <p>Description: <span>{items.decription}</span></p>
+                                <p>Amount: <span>{items.amountTransfer}</span></p>
+                                <p>Transfer Type: <span>{items.mode}</span></p>
+                                {/* <p>Refrence Id: <span>{ }</span></p> */}
+                                <div className='transactionbutton'>
+                                    <button onClick={() => showdel(items._id)}>Delete</button>
+                                    <button onClick={() => print(id)} style={{ marginLeft: '20px' }}>Print</button>
+                                </div>
+                            </div>
+
+
+                        )) : <div>No Transaction</div>
+                        }
 
 
                     </div>
@@ -145,6 +179,19 @@ const Transaction = () => {
 
                 </div>
             </div >
+
+            {del && <div className='deletwalletModal' style={{ display: `${dlt}` }}>
+                <div className='sureyouwntdlt'>
+                    <div>
+                        <div className='trash'><FaTrashAlt /></div>
+                        <p>Are you sure that u want to delete ?</p>
+                        <div className='walletbtndlt'>
+                            <button className='dlt' onClick={() => deletehis()}>Delete</button> <button onClick={() => cancelDelete()}>Cancel</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>}
 
 
 

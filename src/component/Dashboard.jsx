@@ -31,6 +31,7 @@ const Dashboard = ({ userident, setuserpin }) => {
     )
     const [acchide, setacchide] = useState(false)
     const [userdetails, setuserdetails] = useState({})
+    const [inflowdetails, setinflowdetails] = useState({})
 
     //fund account
     const [userid, setuserid] = useState('')
@@ -53,13 +54,25 @@ const Dashboard = ({ userident, setuserpin }) => {
             { display: 'none' }
         )
     }
+
+
     const endpoint = 'http://localhost:4141/user/dashboard'
-    useEffect(() => {
+    const inflowget = 'http://localhost:4141/user/inflowget'
+
+    const getDetails = () => {
         axios.get(endpoint).then((result) => {
             setuserdetails(result.data)
         })
+        axios.get(inflowget).then((result) => {
+            setinflowdetails(result.data)
+        })
 
-    })
+    }
+    useEffect(() => {
+        getDetails()
+
+
+    }, [])
 
 
 
@@ -126,9 +139,9 @@ const Dashboard = ({ userident, setuserpin }) => {
     }
     useEffect(() => {
         transactionfunction()
+        getDetails()
 
-
-    })
+    }, [])
 
 
 
@@ -163,7 +176,7 @@ const Dashboard = ({ userident, setuserpin }) => {
 
     ///Inflowendpoint
     const inflowendpoint = 'http://localhost:4141/user/inflow'
-    let inflow = { account: amount, userid: userdetails._id }
+    let inflow = { amount: amount }
 
     let userpin = { accountPin: pin, accountBalance: amount }
 
@@ -178,8 +191,7 @@ const Dashboard = ({ userident, setuserpin }) => {
 
             })
             axios.post(fundhistory, funacchistory).then((result) => {
-
-
+                getDetails()
 
 
             })
@@ -193,7 +205,10 @@ const Dashboard = ({ userident, setuserpin }) => {
 
 
 
+
+
     }
+
     //Pin creation
     const pincreated = (e) => {
         if (e.target.value == userdetails.accountPin) {
@@ -212,17 +227,18 @@ const Dashboard = ({ userident, setuserpin }) => {
             setpinvalidation('Invalid Pin')
         } else {
             axios.post(fundaccountendpoint, userpin).then((result) => {
-                setacchide(false)
+
                 setuserdetails(result)
-                setacc2validation(false)
+                setacchide(false)
+                setuserpin(result.accountPin)
 
             })
             axios.post(fundhistory, funacchistory).then((result) => {
+                getDetails()
 
 
             })
             axios.get(transactionhistory).then((result) => {
-
                 transactionfunction()
             })
             axios.post(inflowendpoint, inflow).then((result) => {
@@ -231,6 +247,7 @@ const Dashboard = ({ userident, setuserpin }) => {
 
 
         }
+
     }
 
     return (
@@ -288,7 +305,7 @@ const Dashboard = ({ userident, setuserpin }) => {
                         <div style={{ display: "flex", alignItems: 'center' }}>
                             <span>{userdetails.firstName}</span>
                             <div className='imgonline'>
-                                <img src={not} alt="" width='40px' height='40px' style={{ borderRadius: "40px" }} />
+                                {userdetails.imgUrl === '' ? < img src={not} alt="" width='40px' height='40px' style={{ borderRadius: "40px" }} /> : <img src={userdetails.imgUrl} alt="" width='40px' height='40px' style={{ borderRadius: "40px" }} />}
                                 <div className='online'>.</div>
                             </div>
 
@@ -304,7 +321,7 @@ const Dashboard = ({ userident, setuserpin }) => {
                                 </div>
                                 <div>
                                     <p style={{ padding: '5px 0', fontWeight: '500' }}>Account Balance:</p>
-                                    <p> {userdetails.accountBalance == 0 ? '$0.00' : formatter.format(userdetails.accountBalance)}</p>
+                                    <p> {userdetails.accountBalance === 0 ? '$0.00' : formatter.format(userdetails.accountBalance)}</p>
                                 </div>
                                 <div style={{ paddingTop: '10px' }}>
                                     <p style={{ padding: '5px 0', fontWeight: '500' }}>Me Pays Account Number:</p>
@@ -432,8 +449,8 @@ const Dashboard = ({ userident, setuserpin }) => {
                                     <span>
                                         <GrCreditCard />
                                     </span>
-                                    <p className='senttext'>Recieved</p>
-                                    <span className='moneyinvolved'>$0.00</span>
+                                    <p className='senttext'>Inflow</p>
+                                    <span className='moneyinvolved'>{formatter.format(inflowdetails.amount)}</span>
                                 </div>
 
                             </div>
