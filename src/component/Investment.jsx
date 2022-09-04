@@ -1,17 +1,14 @@
-import './dasboard.css'
-import './account.css'
-import Logo from './Logo'
+
 import not from '../imges/not.png'
 import { VscGraphLine } from 'react-icons/vsc'
-import { GrProjects, GrCreditCard, GrPerformance, GrUserSettings, GrSync, GrTextAlignRight, GrClose } from "react-icons/gr";
+import { GrProjects, GrCreditCard, GrUserSettings, GrSync, GrTextAlignRight, } from "react-icons/gr";
 import { RiWindow2Line } from "react-icons/ri";
 import { AiOutlineSave } from "react-icons/ai"
-import { FaUpload, FaCamera } from 'react-icons/fa'
 
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import axios from 'axios'
-const Account = () => {
+const Investment = () => {
     const [dashback, setdashbaack] = useState(false)
     const [dash, setdash] = useState(true)
     const [displaydash, setdisplaydash] = useState(
@@ -46,21 +43,8 @@ const Account = () => {
         userdtls()
 
     }, [])
-    const imguploadep = 'http://localhost:4141/user/imgupload'
-    const imgUpdate = 'http://localhost:4141/user/imgupdate'
-    const uploadimg = (e) => {
-        console.log(e.target.files[0])
-        let reader = new FileReader()
-        reader.readAsDataURL(e.target.files[0])
-        reader.onload = () => {
-            axios.post(imguploadep, { imgurl: reader.result }).then((result) => {
-                userdtls()
-            })
-            axios.post(imgUpdate).then((result) => {
 
-            })
-        }
-    }
+
 
     return (
         <>
@@ -123,59 +107,6 @@ const Account = () => {
                         </div>
 
                     </div>
-                    <div>
-                        <p className='profileacc'>Account/Settings</p>
-                        <div className='profileboard'>
-                            <p className='profile'>Profile</p>
-                            <div className='img'>
-                                {user.imgUrl === '' ? < img src={not} alt="" className='img' /> : <img src={user.imgUrl} className='img' />}
-
-                            </div>
-                            <div className='label'>
-                                <label htmlFor='img-upload'>
-                                    <FaCamera />
-                                    <input type="file" id='img-upload' hidden onChange={(e) => uploadimg(e)} accept='images/*, .png, .jpg' />
-                                </label>
-                            </div>
-
-                            <div className='accountDetails'>
-                                <div>
-                                    <p>FirstName</p>
-                                    <input type="text" placeholder={`${user.firstName}`} />
-                                </div>
-                                <div>
-                                    <p>Last Name</p>
-                                    <input type="text" placeholder={`${user.lastName}`} />
-                                </div>
-                            </div>
-                            <div className='accountDetails' >
-                                <div>
-                                    <p>Email</p>
-                                    <input type="text" placeholder={`${user.email}`} />
-                                </div>
-                                <div>
-                                    <p>Phone Number</p>
-                                    <input type="text" placeholder={`${user.phoneNumber}`} />
-                                </div>
-                            </div>
-                            <div className='accountDetails'>
-                                <div>
-                                    <p>Account</p>
-                                    <input type="text" placeholder={`${user.accounNumber}`} />
-                                </div>
-                                <div>
-                                    <p>Pin </p>
-                                    <input type="text" placeholder={`${user.accountPin}`} />
-                                </div>
-                            </div>
-                            <div className='accdetbtn'>
-                                <button>Save Changes</button>
-                                <button className='btt'>Cancel</button>
-                            </div>
-                        </div>
-                    </div>
-
-
                 </div>
             </div >
 
@@ -186,4 +117,4 @@ const Account = () => {
     )
 }
 
-export default Account
+export default Investment

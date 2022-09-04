@@ -46,7 +46,7 @@ const Transfer = ({ pin }) => {
         time: { hour: date.getHours(), minutes: date.getMinutes() }
     }
     let outflowep = 'http://localhost:4141/user/outflow'
-    let outflow = { amount: amount, userid: user._id }
+    let outflow = { amount: amount }
     let amounttransferred = { amounttransferred: amount }
     const navigate = useNavigate()
     const send = () => {
@@ -96,6 +96,9 @@ const Transfer = ({ pin }) => {
 
                 })
                 axios.post(fundhistory, funacchistory).then((result) => {
+
+                })
+                axios.post(outflowep, outflow).then((result) => {
 
                 })
 

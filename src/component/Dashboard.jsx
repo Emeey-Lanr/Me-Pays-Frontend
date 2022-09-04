@@ -18,9 +18,6 @@ const Dashboard = ({ userident, setuserpin }) => {
         style: 'currency',
         currency: 'USD',
 
-        // These options are needed to round to whole numbers if that's what you want.
-        //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-        //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
     });
 
 
@@ -58,6 +55,8 @@ const Dashboard = ({ userident, setuserpin }) => {
 
     const endpoint = 'http://localhost:4141/user/dashboard'
     const inflowget = 'http://localhost:4141/user/inflowget'
+    const outflowget = 'http://localhost:4141/user/outflowget'
+    const [outflow, setoutflowdetails] = useState({})
 
     const getDetails = () => {
         axios.get(endpoint).then((result) => {
@@ -66,7 +65,9 @@ const Dashboard = ({ userident, setuserpin }) => {
         axios.get(inflowget).then((result) => {
             setinflowdetails(result.data)
         })
-
+        axios.get(outflowget).then((result) => {
+            setoutflowdetails(result.data)
+        })
     }
     useEffect(() => {
         getDetails()
@@ -281,14 +282,12 @@ const Dashboard = ({ userident, setuserpin }) => {
 
 
                         <div className='account'>
+                            <p>Settings</p>
                             <div>
                                 <Link to='/account' className='link'><GrUserSettings /><span>Account</span></Link>
                             </div>
                             <div>
-                                <Link to='/dashboard' className='link'><GrPerformance /><span>Setting</span></Link>
-                            </div>
-                            <div>
-                                <Link to='/dashboard' className='link'><GrSync /><span>Signout</span></Link>
+                                <Link to='/signin' className='link'><GrSync /><span>Signout</span></Link>
                             </div>
 
                         </div>
@@ -442,8 +441,8 @@ const Dashboard = ({ userident, setuserpin }) => {
                             <div className='transactiondetailsboard'>
                                 <div className='Sent'>
                                     <span><GrCreditCard /></span>
-                                    <p className='senttext' style={{ color: ' #f87760' }}>Sent</p>
-                                    <span className='moneyinvolved'>$0.00</span>
+                                    <p className='senttext' style={{ color: ' #f87760' }}>Outflow</p>
+                                    <span className='moneyinvolved'>{formatter.format(outflow.amount)}</span>
                                 </div>
                                 <div className='Saved'>
                                     <span>

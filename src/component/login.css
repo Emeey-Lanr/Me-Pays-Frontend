@@ -183,7 +183,7 @@ h4 {
     background-color: white;
     padding-top: 40px;
     border-radius: 5px;
-    animation: signin 1 3s running normal;
+    animation: signin 1 0.9s running normal;
 }
 
 @keyframes signin {

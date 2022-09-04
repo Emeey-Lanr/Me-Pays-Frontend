@@ -2,7 +2,7 @@ import './dasboard.css'
 import Logo from './Logo'
 import not from '../imges/not.png'
 import { VscGraphLine } from 'react-icons/vsc'
-import { GrProjects, GrCreditCard, GrPerformance, GrUserSettings, GrSync, GrTextAlignRight, GrClose } from "react-icons/gr";
+import { GrProjects, GrCreditCard, GrUserSettings, GrSync, GrTextAlignRight, } from "react-icons/gr";
 import { RiWindow2Line } from "react-icons/ri";
 import { AiOutlineSave } from "react-icons/ai"
 import { FaPlusCircle, FaTrashAlt } from 'react-icons/fa'
@@ -11,6 +11,12 @@ import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import axios from 'axios'
 const Wallet = () => {
+    var formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+
+    });
+
     const [dashback, setdashbaack] = useState(false)
     const [dash, setdash] = useState(true)
     const [displaydash, setdisplaydash] = useState(
@@ -38,8 +44,8 @@ const Wallet = () => {
     const [userdetails, setuserdetails] = useState({})
     const endpoint = 'http://localhost:4141/user/dashboard'
     const walleturl = 'http://localhost:4141/user/wallet'
-    const [wallett, setwallet] = useState()
-    useEffect(() => {
+    const [wallett, setwallet] = useState([])
+    const getInfo = () => {
         axios.get(endpoint).then((result) => {
             setuserdetails(result.data)
 
@@ -55,8 +61,11 @@ const Wallet = () => {
             }
 
         })
+    }
+    useEffect(() => {
 
-    }, [wallett])
+        getInfo()
+    }, [])
 
     //wallet creation 
     const [description, setdescription] = useState('')
@@ -81,21 +90,7 @@ const Wallet = () => {
             setpinvalidtext('')
         }
     }
-    const walletget = () => {
-        axios.get(walleturl).then((result) => {
-            if (result.data.length < 1) {
-                setnowallet(false)
-            } else {
-                setnowallet(true)
-                setwallet(result.data)
 
-
-            }
-
-            console.log(wallett)
-        })
-
-    }
     const [iffail, setiffailed] = useState('')
     const createmodal = () => {
         setcreatewallet(true)
@@ -113,12 +108,14 @@ const Wallet = () => {
                     setTimeout(() => {
                         setcreatewallet(false)
                         setnowallet(true)
-                        walletget()
+                        // walletget()
+                        getInfo()
                     }, 1000)
 
                 } else {
                     setiffailed('Failed')
                     setifailed('red')
+                    getInfo()
                     setTimeout(() => {
                         setcreatewallet(false)
                         wallet()
@@ -131,21 +128,57 @@ const Wallet = () => {
     const withdraw = (id) => {
 
     }
+    const [fundfailure, setfundfailure] = useState('')
     const fundIt = 'http://localhost:4141/user//fundwallet'
     const fundWallet = (itemsid, id) => {
 
         if (userdetails.accountBalance < wallett[id].targetAmount) {
             setwalletstatus(true)
             setinfuccient(true)
+            setiffailed('red')
+            setfundfailure('Insufficient Amount')
             setTimeout(() => {
                 setwalletstatus(false)
                 setinfuccient(false)
+                setiffailed(true)
             }, 2000)
 
+        } else if (wallett[id].fund === wallett[id].targetAmount) {
+
+            setwalletstatus(true)
+            setinfuccient(true)
+            setiffailed('red')
+            setfundfailure('Already Funded')
+            setTimeout(() => {
+                setwalletstatus(false)
+                setinfuccient(false)
+                setiffailed(true)
+            }, 2000)
         } else {
             console.log(`you can`)
             axios.post(fundIt, { target: wallett[id].targetAmount, useramount: userdetails.accountBalance, walletid: itemsid }).then((result) => {
                 console.log(result)
+                if (result.data.staus == true) {
+                    setwalletstatus(true)
+                    setsuccess(true)
+                    setiffailed('green')
+                    getInfo()
+                    setTimeout(() => {
+                        setwalletstatus(false)
+                        setsuccess(false)
+                        setifailed('')
+                    }, 2000);
+                } else {
+                    setwalletstatus(true)
+                    setfailed(true)
+                    setifailed('red')
+                    setTimeout(() => {
+                        setwalletstatus(false)
+                        setfailed(true)
+                        setifailed('')
+                    }, 2000)
+                }
+
             })
         }
 
@@ -159,9 +192,9 @@ const Wallet = () => {
         setdltid(id)
     }
     const deletewallet = () => {
-        console.log(dltid)
         axios.post(deletwallet, { walletid: dltid }).then((result) => {
             setdlt('none')
+            getInfo()
         })
 
     }
@@ -198,16 +231,13 @@ const Wallet = () => {
 
                         </div >
 
-
                         <div className='account'>
+                            <p>Settings</p>
                             <div>
-                                <Link to='/account'><GrUserSettings /><span>Account</span></Link>
+                                <Link to='/account' className='link'><GrUserSettings /><span>Account</span></Link>
                             </div>
                             <div>
-                                <Link to='/dasboard'><GrPerformance /><span>Setting</span></Link>
-                            </div>
-                            <div>
-                                <Link to='/dasboard'><GrSync /><span>Signout</span></Link>
+                                <Link to='/signin' className='link'><GrSync /><span>Signout</span></Link>
                             </div>
 
                         </div>
@@ -222,7 +252,7 @@ const Wallet = () => {
                             <div className='dashsidebtn'><button onClick={() => showdash()}><GrTextAlignRight /> </button></div>
                         </div>
                         <div style={{ display: "flex", alignItems: 'center' }}>
-                            <span>Oyelowo</span>
+                            <span>{userdetails.firstName}</span>
                             <div className='imgonline'>
                                 {userdetails.imgUrl === '' ? < img src={not} alt="" width='40px' height='40px' style={{ borderRadius: "40px" }} /> : <img src={userdetails.imgUrl} alt="" width='40px' height='40px' style={{ borderRadius: "40px" }} />}
                                 <div className='online'>.</div>
@@ -230,6 +260,7 @@ const Wallet = () => {
 
 
                         </div>
+
 
                     </div>
                     <p style={{ textAlign: 'center', fontSize: '1.6rem' }}>Wallet</p>
@@ -241,48 +272,48 @@ const Wallet = () => {
                         <div>
                             {nowallet ? wallett.map((items, id) => {
                                 return (
-                                    <>
-                                        < div className='atmcard' key={id}>
-                                            <div className='atmlogo'>
-                                                <Logo />
+
+                                    < div className='atmcard' key={items._id}>
+                                        <div className='atmlogo'>
+                                            <Logo />
+                                        </div>
+                                        <div style={{ textAlign: 'center' }}>
+                                            <p style={{ padding: '5px 0', fontWeight: '500' }}>Description</p>
+                                            <p>{items.description}</p>
+                                        </div>
+                                        <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center' }}>
+                                            <div>
+                                                <p style={{ padding: '5px 0', fontWeight: '500' }}>Target Amount:</p>
+                                                <p>{formatter.format(items.targetAmount)}</p>
                                             </div>
-                                            <div style={{ textAlign: 'center' }}>
-                                                <p style={{ padding: '5px 0', fontWeight: '500' }}>Description</p>
-                                                <p>{items.description}</p>
+                                            <div style={{ paddingTop: '10px' }}>
+                                                <p style={{ padding: '5px 0', fontWeight: '500' }}>Wallet Amount:</p>
+                                                {items.fund === 0 ? <p className='cardnumber' style={{ fontWeight: '500', fontFamily: 'sans-serif', letterSpacing: 'unset' }}>$0.00</p> : <p className='cardnumber' style={{ fontWeight: '500', fontFamily: 'sans-serif', letterSpacing: 'unset' }}>{formatter.format(items.fund)}</p>}
                                             </div>
-                                            <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center' }}>
+
+                                        </div>
+
+
+                                        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
+                                            <button onClick={() => fundWallet(items._id, id)} style={{ border: 'none', margin: '0 10px', padding: '10px 20px', borderRadius: '5px', background: '#ffff' }}>Fund</button>
+                                            <button onClick={() => withdraw(items._id)} style={{ border: 'none', margin: '0 10px', padding: '10px 20px', borderRadius: '5px', background: '#ffff' }}>Withdraw</button>
+                                            <button onClick={() => remove(items._id)} style={{ border: 'none', margin: '0 10px', padding: '10px 20px', borderRadius: '5px', background: '#ffff' }}>Delete</button>
+                                        </div>
+
+                                        <div className='deletwalletModal' style={{ display: `${dlt}` }}>
+                                            <div className='sureyouwntdlt'>
                                                 <div>
-                                                    <p style={{ padding: '5px 0', fontWeight: '500' }}>Target Amount:</p>
-                                                    <p>{items.targetAmount}</p>
-                                                </div>
-                                                <div style={{ paddingTop: '10px' }}>
-                                                    <p style={{ padding: '5px 0', fontWeight: '500' }}>Wallet Amount:</p>
-                                                    {items.fund === 0 ? <p className='cardnumber' style={{ fontWeight: '500', fontFamily: 'sans-serif', letterSpacing: 'unset' }}>₦0.00</p> : <p className='cardnumber' style={{ fontWeight: '500', fontFamily: 'sans-serif', letterSpacing: 'unset' }}>{items.fund}</p>}
-                                                </div>
-
-                                            </div>
-
-
-                                            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
-                                                <button onClick={() => fundWallet(items._id, id)} style={{ border: 'none', margin: '0 10px', padding: '10px 20px', borderRadius: '5px', background: '#ffff' }}>Fund</button>
-                                                <button onClick={() => withdraw(items._id)} style={{ border: 'none', margin: '0 10px', padding: '10px 20px', borderRadius: '5px', background: '#ffff' }}>Withdraw</button>
-                                                <button onClick={() => remove(items._id)} style={{ border: 'none', margin: '0 10px', padding: '10px 20px', borderRadius: '5px', background: '#ffff' }}>Delete</button>
-                                            </div>
-
-                                            <div className='deletwalletModal' style={{ display: `${dlt}` }}>
-                                                <div className='sureyouwntdlt'>
-                                                    <div>
-                                                        <div className='trash'><FaTrashAlt /></div>
-                                                        <p>Are you sure that u want to delete ?</p>
-                                                        <div className='walletbtndlt'>
-                                                            <button className='dlt' onClick={() => deletewallet()}>Delete</button> <button onClick={() => cancelDelete(items._id)}>Cancel</button>
-                                                        </div>
-
+                                                    <div className='trash'><FaTrashAlt /></div>
+                                                    <p>Are you sure that u want to delete ?</p>
+                                                    <div className='walletbtndlt'>
+                                                        <button className='dlt' onClick={() => deletewallet()}>Delete</button> <button onClick={() => cancelDelete(items._id)}>Cancel</button>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
-                                    </>
+                                    </div>
+
                                 )
 
                             }) : <div></div>
@@ -332,9 +363,9 @@ const Wallet = () => {
             {
                 walletstatus && <div className='fundwallet'>
                     <div>
-                        {success && <p>Succesfull</p>}
-                        {failed && <p>Not Succesfull</p>}
-                        {insufficient && <p className='insuffic'>Insufficient Amount</p>}
+                        {success && <p style={{ color: `${iffail}` }}>Succesful</p>}
+                        {failed && <p style={{ color: `${iffail}` }}>Not Succesful</p>}
+                        {insufficient && <p className='insuffic' style={{ color: `${iffail}` }}>{fundfailure}</p>}
 
                     </div>
 

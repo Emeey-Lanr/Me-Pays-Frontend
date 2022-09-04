@@ -3,15 +3,15 @@ import './transferfund.css'
 import Logo from './Logo'
 import not from '../imges/not.png'
 import { VscGraphLine } from 'react-icons/vsc'
-import { GrProjects, GrCreditCard, GrPerformance, GrUserSettings, GrSync, GrTextAlignRight, GrClose } from "react-icons/gr";
+import { GrProjects, GrCreditCard, GrUserSettings, GrSync, GrTextAlignRight } from "react-icons/gr";
 import { RiWindow2Line } from "react-icons/ri";
 import { AiOutlineSave } from "react-icons/ai"
-import { FaPlusCircle, FaTrashAlt } from 'react-icons/fa'
+import { FaTrashAlt } from 'react-icons/fa'
 
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import axios from 'axios'
-import { Result } from 'postcss'
+
 const Transaction = () => {
     const [del, setdel] = useState(false)
     const [dlt, setdlt] = useState('none')
@@ -35,6 +35,16 @@ const Transaction = () => {
             { display: 'none' }
         )
     }
+    const [userdetails, setuserdetails] = useState({})
+    const endpoint = 'http://localhost:4141/user/dashboard'
+
+    useEffect(() => {
+        axios.get(endpoint).then((result) => {
+            setuserdetails(result.data)
+
+        })
+    })
+
     const transactionendpoint = 'http://localhost:4141/user/transactionhistory'
     const [notransaction, setnotransaction] = useState(false)
     const [transaction, setransaction] = useState()
@@ -100,10 +110,10 @@ const Transaction = () => {
                                 <Link to='/dasHboard' className='dashdetailscon'><span className='dashicon'><GrProjects /></span><span>Dashboard</span></Link>
                             </div>
                             <p className='dashtext'>Services</p>
-                            <div>
+                            <div style={{ borderRight: '2px solid #0067F5', borderRadius: '3px' }}>
                                 <Link to='/transaction' className='dashdetailscon'> <span className='dashicon'><GrCreditCard /></span><span>Transaction</span></Link>
                             </div>
-                            <div style={{ borderRight: '2px solid #0067F5', borderRadius: '3px' }}>
+                            <div>
                                 <Link to='/wallet' className='dashdetailscon'><span className='dashicon'><RiWindow2Line /></span><span>Wallet</span></Link>
                             </div>
                             <div>
@@ -117,14 +127,12 @@ const Transaction = () => {
 
 
                         <div className='account'>
+                            <p>Settings</p>
                             <div>
                                 <Link to='/account' className='link'><GrUserSettings /><span>Account</span></Link>
                             </div>
                             <div>
-                                <Link to='/dasboard' className='link'><GrPerformance /><span>Setting</span></Link>
-                            </div>
-                            <div>
-                                <Link to='/dasboard'><GrSync /><span>Signout</span></Link>
+                                <Link to='/signin' className='link'><GrSync /><span>Signout</span></Link>
                             </div>
 
                         </div>
@@ -139,9 +147,9 @@ const Transaction = () => {
                             <div className='dashsidebtn'><button onClick={() => showdash()}><GrTextAlignRight /> </button></div>
                         </div>
                         <div style={{ display: "flex", alignItems: 'center' }}>
-                            <span>Oyelowo</span>
+                            <span>{userdetails.firstName}</span>
                             <div className='imgonline'>
-                                <img src={not} alt="" width='40px' height='40px' style={{ borderRadius: "40px" }} />
+                                {userdetails.imgUrl === '' ? < img src={not} alt="" width='40px' height='40px' style={{ borderRadius: "40px" }} /> : <img src={userdetails.imgUrl} alt="" width='40px' height='40px' style={{ borderRadius: "40px" }} />}
                                 <div className='online'>.</div>
                             </div>
 
