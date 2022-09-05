@@ -74,7 +74,7 @@ const Investment = () => {
                                 <Link to='/investment' className='dashdetailscon'><span className='dashicon'><VscGraphLine /></span><span>Investement</span></Link>
                             </div>
                             <div>
-                                <Link to='/dasboard' className='dashdetailscon'><span className='dashicon'><AiOutlineSave /></span><span>Savings</span></Link>
+                                <Link to='/wallet' className='dashdetailscon'><span className='dashicon'><AiOutlineSave /></span><span>Savings</span></Link>
                             </div >
 
                         </div >
