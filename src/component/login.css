@@ -335,6 +335,30 @@ h4 {
 
 }
 
+.service {
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    height: 600px;
+    background: url(../imges/notavatar.gif);
+    background-repeat: no-repeat;
+}
+
+.service div {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 600px;
+}
+
+.service div p {
+    font-size: 3rem;
+    font-weight: 500;
+    color: #d6d6d6;
+}
+
 @keyframes gifdivball {
     0% {
         border-radius: 30px;
@@ -375,6 +399,23 @@ h4 {
     }
 }
 
+@media(max-width:730px) {
+    .service {
+        background-size: 100%;
+    }
+
+    .service div {
+        width: 100%;
+        height: 500px;
+        justify-content: center;
+        align-items: flex-end;
+    }
+
+    .service div p {
+        font-size: 2rem;
+    }
+}
+
 @media (max-width:700px) {
     .signinbodycon {
         width: 80%;
@@ -406,6 +447,33 @@ h4 {
 
     .signinbodycon {
         width: 95%;
+    }
+
+    .service {
+        background-size: 100%;
+    }
+
+    .service div {
+        align-items: center;
+    }
+
+}
+
+@media (max-width:350px) {
+    .signup {
+        width: 97%;
+    }
+
+    .signinbodycon {
+        width: 95%;
+    }
+
+    .service {
+        background-size: 100%;
+    }
+
+    .service div p {
+        font-size: 1.5rem;
     }
 
 }

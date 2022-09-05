@@ -10,7 +10,7 @@ import Transfer from './component/Transfer';
 import Wallet from './component/Wallet';
 import Transaction from './component/Transaction';
 import Account from './component/Account';
-
+import Investment from './component/Investment'
 function App() {
   const [userid, setuserid] = useState('')
   const [pin, setuserpin] = useState(0)
@@ -26,6 +26,7 @@ function App() {
         <Route path='/wallet' element={<Wallet />} />
         <Route path='/account' element={<Account />} />
         <Route path='/transaction' element={<Transaction />} />
+        <Route path='/investment' element={<Investment />} />
         <Route path='*' element={<Erropage />} />
       </Routes>
 

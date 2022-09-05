@@ -1,0 +1,117 @@
+@media (max-width:1100px) {
+    .dashsidebar {
+        background-color: #ffff;
+        width: 250px;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        overflow-y: scroll;
+        padding-bottom: 30px;
+        padding-top: 20px;
+    }
+
+    .dashsidebar::-webkit-scrollbar {
+        width: 3px;
+        height: 6px !important;
+    }
+
+    .dashsidebar::-webkit-scrollbar-thumb {
+        height: 30px;
+    }
+
+    .dashsidebar::-webkit-scrollbar-track {
+        background: #556A7F;
+        height: 20px;
+        border-radius: 40px;
+    }
+
+    .dashsidebar::-webkit-scrollbar-track-piece {
+        width: 10px;
+        border-radius: 40px;
+    }
+
+
+    .dashcont {
+        width: 85%;
+        margin: 0 0 0 auto;
+        background: #e9eef7a9;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .dashsidebar {
+        width: 250px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .dashdetails {
+        width: 100%;
+    }
+
+    .dashdetails div {
+        width: 100%;
+        margin: auto;
+        margin: 50px 0;
+        border-bottom: 1px solid #f8f8f9;
+
+    }
+
+    .dashdetails div:hover {
+        transition: 1s all ease-out;
+        padding: 12px 20px;
+        background: #f8f8f9;
+        border-radius: 2px;
+    }
+
+    .dashboardpage {
+        width: 250px;
+        border-right: 2px solid #0067F5;
+        border-radius: 3px;
+    }
+
+
+    .dashtxet {
+        font-size: 1.1rem;
+        color: #768a9e;
+        font-weight: 500;
+    }
+
+    .dashdetails .dashdetailscon {
+        margin: auto;
+        text-decoration: none;
+        color: #556A7F;
+        font-weight: 500;
+
+    }
+
+
+    .dashdetailscon .dashicon {
+        margin-top: 7px;
+        padding-right: 10px;
+        color: #556A7F;
+
+    }
+
+
+
+    .account {
+        margin-top: 100px;
+        line-height: 3.2;
+    }
+
+    .account div {
+        border-bottom: 1px solid #f8f6f6;
+    }
+
+    .account div .link {
+        color: #556A7F;
+        text-decoration: none;
+    }
+
+    .account div .link span {
+        padding-left: 5px;
+        font-weight: 500;
+    }
+}

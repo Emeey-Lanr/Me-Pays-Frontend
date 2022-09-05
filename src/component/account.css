@@ -108,3 +108,9 @@
 .accdetbtn .btt {
     background: #b5b5b6;
 }
+
+@media (max-width:500px) {
+    .accountDetails {
+        grid-template-columns: 90%;
+    }
+}

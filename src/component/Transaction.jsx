@@ -11,12 +11,12 @@ import { FaTrashAlt } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import axios from 'axios'
-
+import Sidebar from './Sidebar'
 const Transaction = () => {
     const [del, setdel] = useState(false)
     const [dlt, setdlt] = useState('none')
     const [dashback, setdashbaack] = useState(false)
-    const [dash, setdash] = useState(true)
+    const [dash, setdash] = useState(false)
     const [displaydash, setdisplaydash] = useState(
         { color: '#768a9e' }
     )
@@ -24,16 +24,12 @@ const Transaction = () => {
 
     const showdash = () => {
         setdashbaack(true)
-        setdisplaydash(
-            { display: 'flex' }
-        )
+
         setdash(true)
     }
     const backhide = () => {
         setdashbaack(false)
-        setdisplaydash(
-            { display: 'none' }
-        )
+        setdash(false)
     }
     const [userdetails, setuserdetails] = useState({})
     const endpoint = 'http://localhost:4141/user/dashboard'
@@ -47,14 +43,16 @@ const Transaction = () => {
 
     const transactionendpoint = 'http://localhost:4141/user/transactionhistory'
     const [notransaction, setnotransaction] = useState(false)
-    const [transaction, setransaction] = useState()
+    const [transaction, setransaction] = useState([])
     const getTransaction = () => {
         axios.get(transactionendpoint).then((result) => {
-            setransaction(result.data)
+            setransaction(result.data.reverse())
             if (result.data.length < 1) {
                 setnotransaction(false)
             } else {
                 setnotransaction(true)
+
+
             }
 
 
@@ -81,9 +79,18 @@ const Transaction = () => {
 
     const deletehis = () => {
         axios.post(deltransep, { tid: tid }).then((result) => {
-            setdel(false)
-            setdlt('none')
-            getTransaction()
+            console.log(result)
+
+            if (result.data['status'] === true) {
+                setdel(false)
+                setdlt('none')
+                getTransaction()
+
+            } else {
+                setdel(false)
+                setdlt('none')
+                getTransaction()
+            }
         })
 
     }
@@ -98,10 +105,11 @@ const Transaction = () => {
     }
     return (
         <>
-
+            {dashback && <div className='backdash' onClick={() => backhide()}></div>}
+            {dash && <Sidebar />}
             <div className='dashboardbody'>
-                {dashback && <div className='backdash' onClick={() => backhide()}></div>}
-                {dash && <div className='dashsidebar' style={displaydash}>
+
+                <div className='dashsidebar'>
                     <div>
                         <Logo />
 
@@ -139,7 +147,7 @@ const Transaction = () => {
 
                     </div >
 
-                </div >}
+                </div >
 
                 <div className='dashcont'>
                     <div className='dashheadercont'>
@@ -163,7 +171,7 @@ const Transaction = () => {
                     <div className='transaction_History_content'>
                         {notransaction ? transaction.map((items, id) => (
 
-                            < div className='div' id={`div${id}`} >
+                            < div className='div' id={`div${id}`} key={id} >
                                 <p>Date: <span>{items.date}</span>/<span>{items.month}</span>/<span>{items.year}</span></p>
                                 <p>Beneficiary Name: <span>{items.beneficiaryName}</span></p>
                                 <p>Beneficiary Acc No:<span>{items.beneficiaryAccountNumber}</span> </p>
@@ -171,6 +179,7 @@ const Transaction = () => {
                                 <p>Amount: <span>{items.amountTransfer}</span></p>
                                 <p>Transfer Type: <span>{items.mode}</span></p>
                                 {/* <p>Refrence Id: <span>{ }</span></p> */}
+                                <p>Time: <span>{items.time}</span></p>
                                 <div className='transactionbutton'>
                                     <button onClick={() => showdel(items._id)}>Delete</button>
                                     <button onClick={() => print(id)} style={{ marginLeft: '20px' }}>Print</button>
@@ -178,7 +187,7 @@ const Transaction = () => {
                             </div>
 
 
-                        )) : <div>No Transaction</div>
+                        )) : <div > No Transaction</div>
                         }
 
 
@@ -186,7 +195,7 @@ const Transaction = () => {
 
 
                 </div>
-            </div >
+            </div>
 
             {del && <div className='deletwalletModal' style={{ display: `${dlt}` }}>
                 <div className='sureyouwntdlt'>
@@ -200,7 +209,6 @@ const Transaction = () => {
                     </div>
                 </div>
             </div>}
-
 
 
 

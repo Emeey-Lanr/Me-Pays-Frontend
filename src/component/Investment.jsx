@@ -8,6 +8,9 @@ import { AiOutlineSave } from "react-icons/ai"
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import axios from 'axios'
+import Logo from './Logo';
+import './login.css'
+import Sidebar from './Sidebar';
 const Investment = () => {
     const [dashback, setdashbaack] = useState(false)
     const [dash, setdash] = useState(true)
@@ -48,10 +51,11 @@ const Investment = () => {
 
     return (
         <>
-
+            {dashback && <div className='backdash' onClick={() => backhide()}></div>}
+            {dash && <Sidebar />}
             <div className='dashboardbody'>
-                {dashback && <div className='backdash' onClick={() => backhide()}></div>}
-                {dash && <div className='dashsidebar' style={displaydash}>
+
+                <div className='dashsidebar' >
                     <div>
                         <Logo />
 
@@ -67,7 +71,7 @@ const Investment = () => {
                                 <Link to='/wallet' className='dashdetailscon'><span className='dashicon'><RiWindow2Line /></span><span>Wallet</span></Link>
                             </div>
                             <div>
-                                <Link to='/dasboard' className='dashdetailscon'><span className='dashicon'><VscGraphLine /></span><span>Investement</span></Link>
+                                <Link to='/investment' className='dashdetailscon'><span className='dashicon'><VscGraphLine /></span><span>Investement</span></Link>
                             </div>
                             <div>
                                 <Link to='/dasboard' className='dashdetailscon'><span className='dashicon'><AiOutlineSave /></span><span>Savings</span></Link>
@@ -88,7 +92,7 @@ const Investment = () => {
 
                     </div >
 
-                </div >}
+                </div >
 
                 <div className='dashcont'>
                     <div className='dashheadercont'>
@@ -96,7 +100,7 @@ const Investment = () => {
                             <div className='dashsidebtn'><button onClick={() => showdash()}><GrTextAlignRight /> </button></div>
                         </div>
                         <div style={{ display: "flex", alignItems: 'center' }}>
-                            <span>Oyelowo</span>
+                            <span>{user.firstName}</span>
                             <div className='imgonline'>
 
                                 {user.imgUrl === '' ? < img src={not} alt="" width='40px' height='40px' style={{ borderRadius: "40px" }} /> : <img src={user.imgUrl} alt="" width='40px' height='40px' style={{ borderRadius: "40px" }} />}
@@ -107,6 +111,12 @@ const Investment = () => {
                         </div>
 
                     </div>
+                </div>
+                <div className='service'>
+                    <div>
+                        <p>Currently Not Available</p>
+                    </div>
+
                 </div>
             </div >
 

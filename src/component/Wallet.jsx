@@ -10,6 +10,7 @@ import { FaPlusCircle, FaTrashAlt } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import axios from 'axios'
+import Sidebar from './Sidebar';
 const Wallet = () => {
     var formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -18,7 +19,7 @@ const Wallet = () => {
     });
 
     const [dashback, setdashbaack] = useState(false)
-    const [dash, setdash] = useState(true)
+    const [dash, setdash] = useState(false)
     const [displaydash, setdisplaydash] = useState(
         { color: '#768a9e' }
     )
@@ -26,16 +27,12 @@ const Wallet = () => {
 
     const showdash = () => {
         setdashbaack(true)
-        setdisplaydash(
-            { display: 'flex' }
-        )
         setdash(true)
     }
     const backhide = () => {
         setdashbaack(false)
-        setdisplaydash(
-            { display: 'none' }
-        )
+
+        setdash(false)
     }
     //wallet modal
     const [createwallet, setcreatewallet] = useState(false)
@@ -128,10 +125,28 @@ const Wallet = () => {
     const withdraw = (id) => {
 
     }
+    const [date, setdate] = useState(new Date())
+    const fundhistory = 'http://localhost:4141/user/fundacchistory'
+
+    let currentime = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+
     const [fundfailure, setfundfailure] = useState('')
     const fundIt = 'http://localhost:4141/user//fundwallet'
     const fundWallet = (itemsid, id) => {
 
+        let funacchistory = {
+            transferid: userdetails._id,
+            beneficiaryName: userdetails.firstName,
+            beneficiaryAccountNumber: userdetails.accountBalance,
+            amountTransfer: wallett[id].targetAmount,
+            decription: wallett[id].description,
+            refrenceid: `${Math.trunc(Math.random() * 2345)}`,
+            mode: 'Debit',
+            date: date.getDate(),
+            year: date.getFullYear(),
+            month: date.getMonth(),
+            time: currentime,
+        }
         if (userdetails.accountBalance < wallett[id].targetAmount) {
             setwalletstatus(true)
             setinfuccient(true)
@@ -159,6 +174,9 @@ const Wallet = () => {
             axios.post(fundIt, { target: wallett[id].targetAmount, useramount: userdetails.accountBalance, walletid: itemsid }).then((result) => {
                 console.log(result)
                 if (result.data.staus == true) {
+                    axios.post(fundhistory, funacchistory).then((result) => {
+                        console.log(result)
+                    })
                     setwalletstatus(true)
                     setsuccess(true)
                     setiffailed('green')
@@ -204,10 +222,11 @@ const Wallet = () => {
 
     return (
         <>
-
+            {dashback && <div className='backdash' onClick={() => backhide()}></div>}
+            {dash && <Sidebar />}
             <div className='dashboardbody'>
-                {dashback && <div className='backdash' onClick={() => backhide()}></div>}
-                {dash && <div className='dashsidebar' style={displaydash}>
+
+                <div className='dashsidebar'>
                     <div>
                         <Logo />
 
@@ -244,7 +263,7 @@ const Wallet = () => {
 
                     </div >
 
-                </div >}
+                </div >
 
                 <div className='dashcont'>
                     <div className='dashheadercont'>

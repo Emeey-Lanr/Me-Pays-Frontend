@@ -11,9 +11,10 @@ import { FaUpload, FaCamera } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import axios from 'axios'
+import Sidebar from './Sidebar'
 const Account = () => {
     const [dashback, setdashbaack] = useState(false)
-    const [dash, setdash] = useState(true)
+    const [dash, setdash] = useState(false)
     const [displaydash, setdisplaydash] = useState(
         { color: '#768a9e' }
     )
@@ -21,16 +22,11 @@ const Account = () => {
 
     const showdash = () => {
         setdashbaack(true)
-        setdisplaydash(
-            { display: 'flex' }
-        )
         setdash(true)
     }
     const backhide = () => {
         setdashbaack(false)
-        setdisplaydash(
-            { display: 'none' }
-        )
+        setdash(false)
     }
     const [user, setuserdetails] = useState({})
     const userdetails = 'http://localhost:4141/user/dashboard'
@@ -64,10 +60,11 @@ const Account = () => {
 
     return (
         <>
-
+            {dashback && <div className='backdash' onClick={() => backhide()}></div>}
+            {dash && <Sidebar />}
             <div className='dashboardbody'>
                 {dashback && <div className='backdash' onClick={() => backhide()}></div>}
-                {dash && <div className='dashsidebar' style={displaydash}>
+                <div className='dashsidebar'>
                     <div>
                         <Logo />
 
@@ -104,7 +101,7 @@ const Account = () => {
 
                     </div >
 
-                </div >}
+                </div >
 
                 <div className='dashcont'>
                     <div className='dashheadercont'>
@@ -112,7 +109,7 @@ const Account = () => {
                             <div className='dashsidebtn'><button onClick={() => showdash()}><GrTextAlignRight /> </button></div>
                         </div>
                         <div style={{ display: "flex", alignItems: 'center' }}>
-                            <span>Oyelowo</span>
+                            <span>{user.firstName}</span>
                             <div className='imgonline'>
 
                                 {user.imgUrl === '' ? < img src={not} alt="" width='40px' height='40px' style={{ borderRadius: "40px" }} /> : <img src={user.imgUrl} alt="" width='40px' height='40px' style={{ borderRadius: "40px" }} />}

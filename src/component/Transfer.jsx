@@ -31,7 +31,9 @@ const Transfer = ({ pin }) => {
 
     const transferendpoint = 'http://localhost:4141/user/transfer'
     const [date, setdate] = useState(new Date())
+    let currentime = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
     const fundhistory = 'http://localhost:4141/user/fundacchistory'
+
     let funacchistory = {
         transferid: user._id,
         beneficiaryName: beneficiaryname,
@@ -43,7 +45,7 @@ const Transfer = ({ pin }) => {
         date: date.getDate(),
         year: date.getFullYear(),
         month: date.getMonth(),
-        time: { hour: date.getHours(), minutes: date.getMinutes() }
+        time: currentime,
     }
     let outflowep = 'http://localhost:4141/user/outflow'
     let outflow = { amount: amount }

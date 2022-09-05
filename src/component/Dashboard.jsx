@@ -9,7 +9,7 @@ import { AiOutlineSave } from "react-icons/ai"
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Result } from 'postcss';
+import Sidebar from './Sidebar';
 import { BsCurrencyExchange } from "react-icons/bs";
 
 
@@ -22,7 +22,7 @@ const Dashboard = ({ userident, setuserpin }) => {
 
 
     const [dashback, setdashbaack] = useState(false)
-    const [dash, setdash] = useState(true)
+    const [dash, setdash] = useState(false)
     const [displaydash, setdisplaydash] = useState(
         { color: '#768a9e' }
     )
@@ -40,16 +40,17 @@ const Dashboard = ({ userident, setuserpin }) => {
     const [createpin, setcreatpin] = useState(true)
     const showdash = () => {
         setdashbaack(true)
-        setdisplaydash(
-            { display: 'flex' }
-        )
+        // setdisplaydash(
+        //     { display: 'flex' }
+        // )
         setdash(true)
     }
     const backhide = () => {
         setdashbaack(false)
-        setdisplaydash(
-            { display: 'none' }
-        )
+        // setdisplaydash(
+        //     { display: 'none' }
+        // )
+        setdash(false)
     }
 
 
@@ -147,7 +148,7 @@ const Dashboard = ({ userident, setuserpin }) => {
 
 
     //Trasaction History JSON
-
+    let currentime = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
     let funacchistory = {
         transferid: userdetails._id,
         beneficiaryName: userdetails.firstName,
@@ -158,7 +159,7 @@ const Dashboard = ({ userident, setuserpin }) => {
         date: date.getDate(),
         year: date.getFullYear(),
         month: date.getMonth(),
-        time: { hour: date.getHours(), minutes: date.getMinutes() }
+        time: currentime,
     }
 
     //Pin validation 
@@ -250,13 +251,23 @@ const Dashboard = ({ userident, setuserpin }) => {
         }
 
     }
+    //condtional Styling for transaction Details
+    const [credit, setcredit] = useState({
+        color: '#71dd37',
+        background: '#eefbe7'
+    })
+    const [debit, setdebit] = useState({
+        color: '#ff3e1d',
+        background: '#ffe7e3'
+    })
 
     return (
         <>
-
+            {dashback && <div className='backdash' onClick={() => backhide()}></div>}
+            {dash && <Sidebar />}
             <div className='dashboardbody'>
-                {dashback && <div className='backdash' onClick={() => backhide()}></div>}
-                {dash && <div className='dashsidebar' style={displaydash}>
+
+                <div className='dashsidebar'>
                     <div>
                         <Logo />
 
@@ -294,7 +305,7 @@ const Dashboard = ({ userident, setuserpin }) => {
 
                     </div >
 
-                </div >}
+                </div >
 
                 <div className='dashcont'>
                     <div className='dashheadercont'>
@@ -374,10 +385,10 @@ const Dashboard = ({ userident, setuserpin }) => {
                         <div className='sect2'>
                             <div className='transhis'>
                                 <p className='transdashtext'>Transactions  Details</p>
-                                {notransaction && <div>No Transaction Made yet</div>}
+                                {notransaction && <div style={{ textAlign: 'center', fontSize: "1.3rem", fontWeight: '500', color: '#d6d6d6', width: '100%', height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>No Transactions History</div>}
                                 {trans1 &&
                                     <div className='dashtranscinfo'>
-                                        <span className='dashsign'><BsCurrencyExchange /></span>
+                                        <span className='dashsign' style={transaction1.mode === 'credit' ? credit : debit}><BsCurrencyExchange /></span>
                                         <div className='dashtransc'>
                                             <p>{transaction1.mode}</p>
                                             <p>{formatter.format(transaction1.amountTransfer)}</p>
@@ -387,7 +398,7 @@ const Dashboard = ({ userident, setuserpin }) => {
                                     </div>
                                 }
                                 {trans2 && <><div className='dashtranscinfo'>
-                                    <span className='dashsign'><BsCurrencyExchange /></span>
+                                    <span className='dashsign' style={transaction1.mode === 'credit' ? credit : debit}><BsCurrencyExchange /></span>
                                     <div className='dashtransc'>
                                         <p>{transaction1.mode}</p>
                                         <p>{formatter.format(transaction1.amountTransfer)}</p>
@@ -396,7 +407,7 @@ const Dashboard = ({ userident, setuserpin }) => {
                                     <p><span>{transaction1.month}</span>/<span>{transaction1.date}</span>/<span>{transaction1.year}</span></p>
                                 </div>
                                     <div className='dashtranscinfo'>
-                                        <span className='dashsign'><BsCurrencyExchange /></span>
+                                        <span className='dashsign' style={transaction2.mode === 'credit' ? credit : debit}><BsCurrencyExchange /></span>
                                         <div className='dashtransc'>
                                             <p>{transaction2.mode}</p>
                                             <p>{formatter.format(transaction2.amountTransfer)}</p>
@@ -407,7 +418,7 @@ const Dashboard = ({ userident, setuserpin }) => {
                                 </>}
                                 {trans3 && <>
                                     <div className='dashtranscinfo'>
-                                        <span className='dashsign'><BsCurrencyExchange /></span>
+                                        <span className='dashsign' style={transaction1.mode === 'credit' ? credit : debit}><BsCurrencyExchange /></span>
                                         <div className='dashtransc'>
                                             <p>{transaction1.mode}</p>
                                             <p>{formatter.format(transaction1.amountTransfer)}</p>
@@ -416,7 +427,7 @@ const Dashboard = ({ userident, setuserpin }) => {
                                         <p><span>{transaction1.month}</span>/<span>{transaction1.date}</span>/<span>{transaction1.year}</span></p>
                                     </div>
                                     <div className='dashtranscinfo'>
-                                        <span className='dashsign'><BsCurrencyExchange /></span>
+                                        <span className='dashsign' style={transaction2.mode === 'credit' ? credit : debit}><BsCurrencyExchange /></span>
                                         <div className='dashtransc'>
                                             <p>{transaction2.mode}</p>
                                             <p>{formatter.format(transaction2.amountTransfer)}</p>
@@ -425,7 +436,7 @@ const Dashboard = ({ userident, setuserpin }) => {
                                         <p><span>{transaction2.month}</span>/<span>{transaction2.date}</span>/<span>{transaction2.year}</span></p>
                                     </div>
                                     <div className='dashtranscinfo'>
-                                        <span className='dashsign'><BsCurrencyExchange /></span>
+                                        <span className='dashsign' style={transaction3.mode === 'credit' ? credit : debit}><BsCurrencyExchange /></span>
                                         <div className='dashtransc'>
                                             <p>{transaction3.mode}</p>
                                             <p>{formatter.format(transaction3.amountTransfer)}</p>
@@ -440,14 +451,16 @@ const Dashboard = ({ userident, setuserpin }) => {
                             </div>
                             <div className='transactiondetailsboard'>
                                 <div className='Sent'>
-                                    <span><GrCreditCard /></span>
+                                    <span><GrCreditCard /></span><br />
+                                    <p style={{ width: '10px', height: '10px', borderRadius: '10px', background: '#ff3e1d' }}></p>
                                     <p className='senttext' style={{ color: ' #f87760' }}>Outflow</p>
                                     <span className='moneyinvolved'>{formatter.format(outflow.amount)}</span>
                                 </div>
                                 <div className='Saved'>
-                                    <span>
+                                    <span style={{ color: '#71dd37' }}>
                                         <GrCreditCard />
-                                    </span>
+                                    </span><br />
+                                    <p style={{ width: '10px', height: '10px', borderRadius: '10px', background: '#71dd37' }}></p>
                                     <p className='senttext'>Inflow</p>
                                     <span className='moneyinvolved'>{formatter.format(inflowdetails.amount)}</span>
                                 </div>
