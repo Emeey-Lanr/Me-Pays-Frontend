@@ -21,23 +21,23 @@ const Sidebar = () => {
                     </div>
                     <p className='dashtext'>Services</p>
                     <div>
-                        <Link to='/transaction' className='dashdetailscon'> <span className='dashicon'><GrCreditCard /></span><span>Transaction</span></Link>
+                        <Link to='/transaction' className='dashdetailscon'> <span className='dashicon'><GrCreditCard /></span><span>Transactions</span></Link>
                     </div>
                     <div>
                         <Link to='/wallet' className='dashdetailscon'><span className='dashicon'><RiWindow2Line /></span><span>Wallet</span></Link>
                     </div>
                     <div>
-                        <Link to='/dasboard' className='dashdetailscon'><span className='dashicon'><VscGraphLine /></span><span>Investement</span></Link>
+                        <Link to='/investment' className='dashdetailscon'><span className='dashicon'><VscGraphLine /></span><span>Investment</span></Link>
                     </div>
                     <div>
-                        <Link to='/dasboard' className='dashdetailscon'><span className='dashicon'><AiOutlineSave /></span><span>Savings</span></Link>
+                        <Link to='/wallet' className='dashdetailscon'><span className='dashicon'><AiOutlineSave /></span><span>Savings</span></Link>
                     </div >
 
                 </div >
 
                 <div className='account'>
                     <p>Settings</p>
-                    <div style={{ borderRight: '2px solid #0067F5', borderRadius: '3px' }}>
+                    <div>
                         <Link to='/account' className='link'><GrUserSettings /><span>Account</span></Link>
                     </div>
                     <div>

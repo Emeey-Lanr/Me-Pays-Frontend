@@ -1,0 +1,17 @@
+.errorpage {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    background: url(../imges/error.png);
+    background-size: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+@media (max-width:400px) {
+    .errorpage {
+        background-size: 100%;
+    }
+}

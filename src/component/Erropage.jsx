@@ -1,6 +1,11 @@
+import './error.css'
 const Erropage = () => {
     return (
-        <div>Erropage</div>
+        <>
+            <div className="errorpage">
+
+            </div>
+        </>
     )
 }
 

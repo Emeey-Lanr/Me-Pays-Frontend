@@ -62,6 +62,7 @@ const Dashboard = ({ userident, setuserpin }) => {
     const getDetails = () => {
         axios.get(endpoint).then((result) => {
             setuserdetails(result.data)
+            setpin(result.data.accountPin)
         })
         axios.get(inflowget).then((result) => {
             setinflowdetails(result.data)
@@ -187,9 +188,19 @@ const Dashboard = ({ userident, setuserpin }) => {
 
             axios.post(fundaccountendpoint, userpin).then((result) => {
 
-                setuserdetails(result)
-                setacchide(false)
-                setuserpin(result.accountPin)
+
+
+                console.log(result)
+                if (result.data.status === true) {
+                    setacchide(false)
+                    getDetails()
+                    transactionfunction()
+                    setuserpin(userdetails.accountPin)
+
+                } else {
+                    getDetails()
+                    transactionfunction()
+                }
 
             })
             axios.post(fundhistory, funacchistory).then((result) => {
@@ -201,7 +212,13 @@ const Dashboard = ({ userident, setuserpin }) => {
                 transactionfunction()
             })
             axios.post(inflowendpoint, inflow).then((result) => {
-                console.log(result)
+                if (result.data.status === true) {
+                    getDetails()
+                    transactionfunction()
+                } else {
+                    getDetails()
+                    transactionfunction()
+                }
             })
         }
 
@@ -230,9 +247,16 @@ const Dashboard = ({ userident, setuserpin }) => {
         } else {
             axios.post(fundaccountendpoint, userpin).then((result) => {
 
-                setuserdetails(result)
-                setacchide(false)
-                setuserpin(result.accountPin)
+                if (result.data.status === true) {
+                    setacchide(false)
+                    getDetails()
+                    transactionfunction()
+                    setuserpin(userdetails.accountPin)
+
+                } else {
+                    getDetails()
+                    transactionfunction()
+                }
 
             })
             axios.post(fundhistory, funacchistory).then((result) => {
@@ -244,7 +268,13 @@ const Dashboard = ({ userident, setuserpin }) => {
                 transactionfunction()
             })
             axios.post(inflowendpoint, inflow).then((result) => {
-                console.log(result)
+                if (result.data.status === true) {
+                    getDetails()
+                    transactionfunction()
+                } else {
+                    getDetails()
+                    transactionfunction()
+                }
             })
 
 
@@ -277,13 +307,13 @@ const Dashboard = ({ userident, setuserpin }) => {
                             </div>
                             <p className='dashtext'>Services</p>
                             <div>
-                                <Link to='/transaction' className='dashdetailscon'> <span className='dashicon'><GrCreditCard /></span><span>Transaction</span></Link>
+                                <Link to='/transaction' className='dashdetailscon'> <span className='dashicon'><GrCreditCard /></span><span>Transactions</span></Link>
                             </div>
                             <div>
                                 <Link to='/wallet' className='dashdetailscon'><span className='dashicon'><RiWindow2Line /></span><span>Wallet</span></Link>
                             </div>
                             <div>
-                                <Link to='/investment' className='dashdetailscon'><span className='dashicon'><VscGraphLine /></span><span>Investement</span></Link>
+                                <Link to='/investment' className='dashdetailscon'><span className='dashicon'><VscGraphLine /></span><span>Investment</span></Link>
                             </div>
                             <div>
                                 <Link to='/wallet' className='dashdetailscon'><span className='dashicon'><AiOutlineSave /></span><span>Savings</span></Link>
@@ -360,19 +390,19 @@ const Dashboard = ({ userident, setuserpin }) => {
                                     <p style={{ textAlign: 'center', fontWeight: '500', color: '#556A7F' }}>Current Market</p>
                                     <div className='invest'>
                                         <div className='invest1'>
-                                            <p className='investp'>Rux Coin</p><div style={{ display: 'flex', justifyContent: 'flex-end', borderRadius: "0 4px 4px 0" }}><span style={{ color: 'white', paddingRight: '3px', fontWeight: '500' }}>70%</span></div>
+                                            <p className='investp'>Rux Coin</p><div style={{ display: 'flex', justifyContent: 'flex-end', borderRadius: "0 4px 4px 0" }}><span style={{ color: 'white', paddingRight: '3px', fontWeight: '500' }}>100%</span></div>
                                         </div>
                                         <div className='invest2'>
-                                            <p className='investp'>BetCoin</p><div style={{ display: 'flex', justifyContent: 'flex-end', borderRadius: "0 4px 4px 0" }}><span style={{ color: 'white', paddingRight: '3px', fontWeight: '500' }}>80%</span></div>
+                                            <p className='investp'>BetCoin</p><div style={{ display: 'flex', justifyContent: 'flex-end', borderRadius: "0 4px 4px 0" }}><span style={{ color: 'white', paddingRight: '3px', fontWeight: '500' }}>50%</span></div>
                                         </div>
                                         <div className='invest3'>
-                                            <p className='investp'>Bit coin</p><div style={{ display: 'flex', justifyContent: 'flex-end', borderRadius: "0 4px 4px 0" }}><span style={{ color: 'white', paddingRight: '3px', fontWeight: '500' }}>70%</span></div>
+                                            <p className='investp'>Bit coin</p><div style={{ display: 'flex', justifyContent: 'flex-end', borderRadius: "0 4px 4px 0" }}><span style={{ color: 'white', paddingRight: '3px', fontWeight: '500' }}>75%</span></div>
                                         </div>
                                         <div className='invest4'>
-                                            <p className='investp'>Love Coin</p><div style={{ display: 'flex', justifyContent: 'flex-end', borderRadius: "0 4px 4px 0" }}><span style={{ color: 'white', paddingRight: '3px', fontWeight: '500' }}>70%</span></div>
+                                            <p className='investp'>Love Coin</p><div style={{ display: 'flex', justifyContent: 'flex-end', borderRadius: "0 4px 4px 0" }}><span style={{ color: 'white', paddingRight: '3px', fontWeight: '500' }}>30%</span></div>
                                         </div>
                                         <div className='invest5'>
-                                            <p className='investp'>Love Coin</p><div style={{ display: 'flex', justifyContent: 'flex-end', borderRadius: "0 4px 4px 0" }}><span style={{ color: 'white', paddingRight: '3px', fontWeight: '500' }}>70%</span></div>
+                                            <p className='investp'>Love Coin</p><div style={{ display: 'flex', justifyContent: 'flex-end', borderRadius: "0 4px 4px 0" }}><span style={{ color: 'white', paddingRight: '3px', fontWeight: '500' }}>15%</span></div>
                                         </div>
 
                                     </div>

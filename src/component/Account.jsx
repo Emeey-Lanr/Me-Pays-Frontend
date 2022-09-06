@@ -50,10 +50,105 @@ const Account = () => {
         reader.readAsDataURL(e.target.files[0])
         reader.onload = () => {
             axios.post(imguploadep, { imgurl: reader.result }).then((result) => {
-                userdtls()
+                if (result.data.status === true) {
+                    userdtls()
+                } else {
+                    userdtls()
+                }
             })
-            axios.post(imgUpdate).then((result) => {
 
+        }
+    }
+    //////Edit info
+    const [toast, settoast] = useState(false)
+    const [btndis, setbtndis] = useState(true)
+    const [firstName, setfirstName] = useState(user.firstName)
+    const [lastName, setlastName] = useState(user.lastName)
+    const [password, setpassword] = useState(user.password)
+    const [phoneNumber, setphoneNumber] = useState(user.phoneNumber)
+    const [pin, setPin] = useState(user.accountPin)
+    const [pinres, setpinres] = useState('')
+    const [checknumb, setchecknumb] = useState('')
+
+    let phoneRegex = /^[\d]{11}$/
+    let pinRegex = /^[\d]{4}$/
+    let passRegex = /^[\w]{6,20}$/
+
+    // let check = false
+    const [itredgreen, setifredgreen] = useState(true)
+    const checkifPinValid = (e) => {
+        if (pinRegex.test(e.target.value)) {
+            setpinres()
+            setbtndis(false)
+            setPin(e.target.value)
+        } else {
+            setpinres('Invalid pin, pin must be 4 digits')
+            setbtndis(true)
+            setifredgreen(true)
+        }
+
+    }
+    const checKifNumber = (e) => {
+        if (phoneRegex.test(e.target.value)) {
+            setchecknumb('')
+            setbtndis(false)
+            setphoneNumber(e.target.value)
+        } else {
+            setchecknumb('Invalid phone number')
+            setbtndis(true)
+
+        }
+    }
+    const checkpassword = (e) => {
+        if (passRegex.test(e.target.value)) {
+            setpassword(e.target.value)
+            settoast(false)
+            setbtndis(false)
+        } else {
+            setcheckifempty('Password must be at least 6 characters or more')
+            settoast(true)
+            setbtndis(true)
+            setifredgreen(true)
+        }
+
+    }
+    const [red, setred] = useState(
+        { color: 'red', fontWeight: "500" }
+    )
+    const [green, setgreen] = useState({
+        color: 'green', fontWeight: '500'
+    })
+    const [checkifempty, setcheckifempty] = useState('')
+    const editAccountEndpoint = 'http://localhost:4141/user//editAccount'
+    let editedInfo = { firstName: firstName, lastName: lastName, password: password, phoneNumber: phoneNumber, accountPin: pin }
+    const saveChanges = () => {
+
+        if (firstName === '' || lastName === '') {
+            setcheckifempty('Fill in details')
+            setifredgreen(true)
+            settoast(true)
+        } else {
+            settoast(false)
+            axios.post(editAccountEndpoint, editedInfo).then((result) => {
+                if (result.data.status === true) {
+                    settoast(true)
+                    setcheckifempty('Edited Succesfully')
+                    setifredgreen(false)
+                    setTimeout(() => {
+                        settoast(false)
+                        setcheckifempty('')
+                        userdtls()
+                    }, 1000)
+                } else {
+                    settoast(true)
+                    setcheckifempty('Unable to Update')
+                    setifredgreen(true)
+                    setTimeout(() => {
+                        settoast(false)
+                        setcheckifempty('')
+                        userdtls()
+                    }, 1000)
+                }
             })
         }
     }
@@ -63,7 +158,6 @@ const Account = () => {
             {dashback && <div className='backdash' onClick={() => backhide()}></div>}
             {dash && <Sidebar />}
             <div className='dashboardbody'>
-                {dashback && <div className='backdash' onClick={() => backhide()}></div>}
                 <div className='dashsidebar'>
                     <div>
                         <Logo />
@@ -74,13 +168,13 @@ const Account = () => {
                             </div>
                             <p className='dashtext'>Services</p>
                             <div>
-                                <Link to='/transaction' className='dashdetailscon'> <span className='dashicon'><GrCreditCard /></span><span>Transaction</span></Link>
+                                <Link to='/transaction' className='dashdetailscon'> <span className='dashicon'><GrCreditCard /></span><span>Transactions</span></Link>
                             </div>
                             <div>
                                 <Link to='/wallet' className='dashdetailscon'><span className='dashicon'><RiWindow2Line /></span><span>Wallet</span></Link>
                             </div>
                             <div>
-                                <Link to='/investment' className='dashdetailscon'><span className='dashicon'><VscGraphLine /></span><span>Investement</span></Link>
+                                <Link to='/investment' className='dashdetailscon'><span className='dashicon'><VscGraphLine /></span><span>Investment</span></Link>
                             </div>
                             <div>
                                 <Link to='/wallet' className='dashdetailscon'><span className='dashicon'><AiOutlineSave /></span><span>Savings</span></Link>
@@ -123,58 +217,63 @@ const Account = () => {
                     <div>
                         <p className='profileacc'>Account/Settings</p>
                         <div className='profileboard'>
+                            {toast && <div style={{ width: '90%', height: '60px', background: '#edf2f5', borderRadius: "5px", margin: "auto", display: 'flex', justifyContent: "center", alignItems: 'center' }}>
+                                <p style={itredgreen ? red : green}>{checkifempty}</p>
+                            </div>}
                             <p className='profile'>Profile</p>
                             <div className='img'>
-                                {user.imgUrl === '' ? < img src={not} alt="" className='img' /> : <img src={user.imgUrl} className='img' />}
+                                {user.imgUrl === '' ? < img src={not} alt="" className='img' /> : <img src={user.imgUrl} className='img' alt='' />}
 
                             </div>
                             <div className='label'>
                                 <label htmlFor='img-upload'>
                                     <FaCamera />
-                                    <input type="file" id='img-upload' hidden onChange={(e) => uploadimg(e)} accept='images/*, .png, .jpg' />
+                                    <input type="file" id='img-upload' hidden onChange={(e) => uploadimg(e)} accept="image/*" />
                                 </label>
                             </div>
 
                             <div className='accountDetails'>
                                 <div>
                                     <p>FirstName</p>
-                                    <input type="text" placeholder={`${user.firstName}`} />
+                                    <input type="text" placeholder={`${user.firstName}`} onChange={(e) => setfirstName(e.target.value)} />
                                 </div>
                                 <div>
                                     <p>Last Name</p>
-                                    <input type="text" placeholder={`${user.lastName}`} />
+                                    <input type="text" placeholder={`${user.lastName}`} onChange={(e) => setlastName(e.target.value)} />
                                 </div>
                             </div>
                             <div className='accountDetails' >
                                 <div>
                                     <p>Email</p>
-                                    <input type="text" placeholder={`${user.email}`} />
+                                    <input type="text" placeholder={`${user.email}`} disabled={true} />
                                 </div>
                                 <div>
                                     <p>Phone Number</p>
-                                    <input type="text" placeholder={`${user.phoneNumber}`} />
+                                    <input type="text" placeholder={`${user.phoneNumber}`} onChange={(e) => checKifNumber(e)} />
+                                    <p style={{ color: 'red', fontSize: "0.9rem" }}>{checknumb}</p>
                                 </div>
                             </div>
                             <div className='accountDetails'>
                                 <div>
-                                    <p>Account</p>
-                                    <input type="text" placeholder={`${user.accounNumber}`} />
+                                    <p>Password</p>
+                                    <input type="text" placeholder={`${user.password}`} onChange={(e) => checkpassword(e)} />
                                 </div>
                                 <div>
                                     <p>Pin </p>
-                                    <input type="text" placeholder={`${user.accountPin}`} />
+                                    <input type="number" placeholder={`${user.accountPin}`} onChange={(e) => checkifPinValid(e)} />
+                                    <p style={{ color: 'red', fontSize: "0.9rem" }}>{pinres}</p>
                                 </div>
                             </div>
                             <div className='accdetbtn'>
-                                <button>Save Changes</button>
+                                <button disabled={btndis} onClick={() => saveChanges()}>Save Changes</button>
                                 <button className='btt'>Cancel</button>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div >
+
+
 
 
 

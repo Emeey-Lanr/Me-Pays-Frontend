@@ -13,7 +13,7 @@ import './login.css'
 import Sidebar from './Sidebar';
 const Investment = () => {
     const [dashback, setdashbaack] = useState(false)
-    const [dash, setdash] = useState(true)
+    const [dash, setdash] = useState(false)
     const [displaydash, setdisplaydash] = useState(
         { color: '#768a9e' }
     )
@@ -21,16 +21,12 @@ const Investment = () => {
 
     const showdash = () => {
         setdashbaack(true)
-        setdisplaydash(
-            { display: 'flex' }
-        )
+
         setdash(true)
     }
     const backhide = () => {
         setdashbaack(false)
-        setdisplaydash(
-            { display: 'none' }
-        )
+
     }
     const [user, setuserdetails] = useState({})
     const userdetails = 'http://localhost:4141/user/dashboard'
@@ -65,13 +61,13 @@ const Investment = () => {
                             </div>
                             <p className='dashtext'>Services</p>
                             <div>
-                                <Link to='/transaction' className='dashdetailscon'> <span className='dashicon'><GrCreditCard /></span><span>Transaction</span></Link>
+                                <Link to='/transaction' className='dashdetailscon'> <span className='dashicon'><GrCreditCard /></span><span>Transactions</span></Link>
                             </div>
                             <div>
                                 <Link to='/wallet' className='dashdetailscon'><span className='dashicon'><RiWindow2Line /></span><span>Wallet</span></Link>
                             </div>
                             <div>
-                                <Link to='/investment' className='dashdetailscon'><span className='dashicon'><VscGraphLine /></span><span>Investement</span></Link>
+                                <Link to='/investment' className='dashdetailscon'><span className='dashicon'><VscGraphLine /></span><span>Investment</span></Link>
                             </div>
                             <div>
                                 <Link to='/wallet' className='dashdetailscon'><span className='dashicon'><AiOutlineSave /></span><span>Savings</span></Link>
