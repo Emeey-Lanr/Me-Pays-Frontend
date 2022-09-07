@@ -178,6 +178,7 @@ const Dashboard = ({ userident, setuserpin }) => {
     }
 
     ///Inflowendpoint
+    const [fundanimation, setfundanimation] = useState(false)
     const inflowendpoint = 'http://localhost:4141/user/inflow'
     let inflow = { amount: amount }
 
@@ -185,7 +186,7 @@ const Dashboard = ({ userident, setuserpin }) => {
 
     const fundaccount = () => {
         if (userdetails.accountPin === 0) {
-
+            setfundanimation(true)
             axios.post(fundaccountendpoint, userpin).then((result) => {
 
 
@@ -196,6 +197,7 @@ const Dashboard = ({ userident, setuserpin }) => {
                     getDetails()
                     transactionfunction()
                     setuserpin(userdetails.accountPin)
+                    setfundanimation(false)
 
                 } else {
                     getDetails()
@@ -246,16 +248,18 @@ const Dashboard = ({ userident, setuserpin }) => {
             setpinvalidation('Invalid Pin')
         } else {
             axios.post(fundaccountendpoint, userpin).then((result) => {
-
+                setfundanimation(true)
                 if (result.data.status === true) {
                     setacchide(false)
                     getDetails()
                     transactionfunction()
                     setuserpin(userdetails.accountPin)
+                    setfundanimation(false)
 
                 } else {
                     getDetails()
                     transactionfunction()
+                    setfundanimation(false)
                 }
 
             })
@@ -526,7 +530,12 @@ const Dashboard = ({ userident, setuserpin }) => {
                                 <input type="number" onChange={(e) => pincreated(e)} />
                             </div>}
                         <p style={{ color: 'red', fontSize: '0.9rem', width: '90%', margin: '0 auto' }}>{pinvalidation}</p>
-
+                        {fundanimation && <div className='fundingaccounanimation'>
+                            <div className='f1'></div>
+                            <div className='f2'></div>
+                            <div className='f3'></div>
+                            <div className='f4'></div>
+                        </div>}
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             {createpin && <button disabled={pinvalidationbtn} onClick={() => fundaccount()}>Fund Account</button>}
                             {fundacc2validation && <button onClick={() => fundaccount2()}>Fund Account</button>}

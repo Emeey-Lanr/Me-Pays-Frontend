@@ -109,8 +109,36 @@
     background: #b5b5b6;
 }
 
+.spinner {
+    position: absolute;
+    height: 60px;
+    width: 60px;
+    border: 6px solid #607387;
+    border-radius: 60px;
+    margin-top: 17px;
+    border-left: none;
+    border-bottom: none;
+    animation: spinner infinite 1s running normal;
+
+
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(360deg);
+    }
+
+
+}
+
 @media (max-width:500px) {
     .accountDetails {
         grid-template-columns: 90%;
     }
+
+    .accdetbtn {
+        margin-left: 0;
+        justify-content: center;
+    }
+
 }

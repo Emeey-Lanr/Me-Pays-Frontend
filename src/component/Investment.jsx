@@ -66,7 +66,7 @@ const Investment = () => {
                             <div>
                                 <Link to='/wallet' className='dashdetailscon'><span className='dashicon'><RiWindow2Line /></span><span>Wallet</span></Link>
                             </div>
-                            <div>
+                            <div style={{ borderRight: '2px solid #0067F5', borderRadius: '3px' }}>
                                 <Link to='/investment' className='dashdetailscon'><span className='dashicon'><VscGraphLine /></span><span>Investment</span></Link>
                             </div>
                             <div>
@@ -77,7 +77,7 @@ const Investment = () => {
 
                         <div className='account'>
                             <p>Settings</p>
-                            <div style={{ borderRight: '2px solid #0067F5', borderRadius: '3px' }}>
+                            <div >
                                 <Link to='/account' className='link'><GrUserSettings /><span>Account</span></Link>
                             </div>
                             <div>

@@ -671,6 +671,30 @@
     color: white;
 }
 
+.fundingaccounanimation {
+    display: flex;
+    justify-content: center;
+    padding: 2px 0;
+    align-items: center;
+    animation: fd infinite 1s running normal;
+}
+
+@keyframes fd {
+    0% {
+        opacity: 0;
+        transform: rotateX(40deg);
+    }
+
+}
+
+.fundingaccounanimation div {
+    width: 5px;
+    height: 5px;
+    background: #0067F5;
+    margin: 0 4px;
+}
+
+
 @media (max-width:1330px) {
     .dashcont {
         width: 80%;

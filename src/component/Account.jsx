@@ -42,6 +42,8 @@ const Account = () => {
         userdtls()
 
     }, [])
+    const [toast, settoast] = useState(false)
+    const [spinner, setspinner] = useState(false)
     const imguploadep = 'http://localhost:4141/user/imgupload'
     const imgUpdate = 'http://localhost:4141/user/imgupdate'
     const uploadimg = (e) => {
@@ -49,18 +51,28 @@ const Account = () => {
         let reader = new FileReader()
         reader.readAsDataURL(e.target.files[0])
         reader.onload = () => {
+            setspinner(true)
             axios.post(imguploadep, { imgurl: reader.result }).then((result) => {
                 if (result.data.status === true) {
                     userdtls()
+                    setspinner(false)
                 } else {
                     userdtls()
+                    setspinner(false)
+                    settoast(true)
+                    setcheckifempty('Unable to upload')
+                    setTimeout(() => {
+                        settoast(false)
+                        setcheckifempty('')
+                    }, 1500)
                 }
             })
 
         }
     }
+
     //////Edit info
-    const [toast, settoast] = useState(false)
+
     const [btndis, setbtndis] = useState(true)
     const [firstName, setfirstName] = useState(user.firstName)
     const [lastName, setlastName] = useState(user.lastName)
@@ -99,19 +111,7 @@ const Account = () => {
 
         }
     }
-    const checkpassword = (e) => {
-        if (passRegex.test(e.target.value)) {
-            setpassword(e.target.value)
-            settoast(false)
-            setbtndis(false)
-        } else {
-            setcheckifempty('Password must be at least 6 characters or more')
-            settoast(true)
-            setbtndis(true)
-            setifredgreen(true)
-        }
 
-    }
     const [red, setred] = useState(
         { color: 'red', fontWeight: "500" }
     )
@@ -120,7 +120,7 @@ const Account = () => {
     })
     const [checkifempty, setcheckifempty] = useState('')
     const editAccountEndpoint = 'http://localhost:4141/user//editAccount'
-    let editedInfo = { firstName: firstName, lastName: lastName, password: password, phoneNumber: phoneNumber, accountPin: pin }
+    let editedInfo = { firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, accountPin: pin }
     const saveChanges = () => {
 
         if (firstName === '' || lastName === '') {
@@ -222,6 +222,7 @@ const Account = () => {
                             </div>}
                             <p className='profile'>Profile</p>
                             <div className='img'>
+                                {spinner && <div className='spinner'></div>}
                                 {user.imgUrl === '' ? < img src={not} alt="" className='img' /> : <img src={user.imgUrl} className='img' alt='' />}
 
                             </div>
@@ -255,8 +256,8 @@ const Account = () => {
                             </div>
                             <div className='accountDetails'>
                                 <div>
-                                    <p>Password</p>
-                                    <input type="text" placeholder={`${user.password}`} onChange={(e) => checkpassword(e)} />
+                                    <p>Account Number</p>
+                                    <input type="text" placeholder={`${user.accounNumber}`} disabled={true} />
                                 </div>
                                 <div>
                                     <p>Pin </p>
