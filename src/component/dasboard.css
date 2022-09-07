@@ -814,6 +814,8 @@
     }
 }
 
+
+
 @media (max-width:500px) {
     .atmcard {
         width: 90%;
@@ -867,6 +869,18 @@
     .fundwallet div p {
         font-size: 1.2rem;
         font-weight: 400;
+    }
+}
+
+@media (max-width:495px) {
+    .transactiondetailsboard {
+        width: 96%;
+        margin: 10px auto;
+        justify-content: center;
+    }
+
+    .transactiondetailsboard div {
+        width: 92%;
     }
 }
 
